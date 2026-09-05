@@ -1,7 +1,7 @@
 <title>Lassie's Letter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
 <style>
   :root{
     --paper:#FDF6F2;
@@ -12,19 +12,23 @@
     --rose:#C4708A;
     --rose-deep:#A9526E;
     --blush:#F7D4DA;
-    --gold:#C0A06B;g
+    --blush-wash:#FBEAEC;
+    --gold:#C0A06B;
     --sage:#93A894;
     --rule:#EBD7D0;
     --glow:rgba(196,112,138,.16);
+    --seal-a:#C4708A;
+    --seal-b:#8E3F58;
+    --grain:.30;
     --petal-a:236,183,193;
     --petal-b:246,214,204;
 
     --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
     --f-body:"Karla","Helvetica Neue",Arial,sans-serif;
 
-    --measure:64ch;
+    --measure:63ch;
     --gutter:clamp(1.25rem,5vw,3.5rem);
-    --rail:clamp(0px,6vw,9rem);
+    --rail:clamp(0px,7vw,10rem);
   }
 
   @media (prefers-color-scheme:dark){
@@ -37,10 +41,14 @@
       --rose:#E39BB0;
       --rose-deep:#F0B6C7;
       --blush:#4A2E3B;
+      --blush-wash:#2C1F2A;
       --gold:#D9BC84;
       --sage:#A7BCA8;
       --rule:#3A2A35;
       --glow:rgba(227,155,176,.20);
+      --seal-a:#E39BB0;
+      --seal-b:#A9526E;
+      --grain:.13;
       --petal-a:120,72,90;
       --petal-b:88,58,74;
     }
@@ -54,10 +62,14 @@
     --rose:#E39BB0;
     --rose-deep:#F0B6C7;
     --blush:#4A2E3B;
+    --blush-wash:#2C1F2A;
     --gold:#D9BC84;
     --sage:#A7BCA8;
     --rule:#3A2A35;
     --glow:rgba(227,155,176,.20);
+    --seal-a:#E39BB0;
+    --seal-b:#A9526E;
+    --grain:.13;
     --petal-a:120,72,90;
     --petal-b:88,58,74;
   }
@@ -70,232 +82,282 @@
     color:var(--ink);
     font-family:var(--f-body);
     font-size:16px;
-    line-height:1.72;
+    line-height:1.75;
     -webkit-font-smoothing:antialiased;
   }
 
-  #petals{
-    position:fixed; inset:0; width:100%; height:100%;
-    pointer-events:none; z-index:0;
+  /* paper grain */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    opacity:var(--grain);mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
   }
+
+  #petals{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
 
   .sheet{
-    position:relative; z-index:1;
+    position:relative;z-index:2;
     max-width:calc(var(--measure) + var(--rail) + var(--gutter)*2);
     margin:0 auto;
-    padding:clamp(2.5rem,7vw,5rem) var(--gutter) clamp(4rem,10vw,7rem);
+    padding:clamp(2.5rem,7vw,5rem) var(--gutter) clamp(3rem,8vw,5rem);
   }
 
-  /* ---- the letter spine: rail label + content ---- */
+  /* ---- letter spine ---- */
   .row{
     display:grid;
     grid-template-columns:var(--rail) minmax(0,1fr);
     column-gap:clamp(1rem,3vw,2.25rem);
     align-items:start;
   }
-  .rail{
-    font-family:var(--f-body);
-    font-size:.62rem; font-weight:600;
-    letter-spacing:.2em; text-transform:uppercase;
-    color:var(--ink-faint);
-    padding-top:.85rem;
-    white-space:nowrap;
+  .rail{padding-top:.9rem;}
+  .rail .mark{
+    display:block;
+    font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-faint);white-space:nowrap;
   }
-  @media (max-width:720px){
-    .row{grid-template-columns:1fr; row-gap:.35rem;}
-    .rail{padding-top:0;}
+  .rail .aside{
+    display:block;margin-top:.6rem;
+    font-family:var(--f-display);font-style:italic;font-weight:300;
+    font-size:1rem;line-height:1.4;color:var(--rose-deep);opacity:.85;
+  }
+  @media (max-width:760px){
+    .row{grid-template-columns:1fr;row-gap:.4rem;}
+    .rail{padding-top:0;display:flex;align-items:baseline;gap:.85rem;flex-wrap:wrap;}
+    .rail .aside{margin-top:0;font-size:.95rem;}
   }
 
-  section + section{margin-top:clamp(3rem,7vw,5.25rem);}
+  section + section{margin-top:clamp(3rem,7vw,5rem);}
 
-  /* ---- hairline with a rose dot ---- */
+  /* ---- fleuron divider ---- */
   .divider{
-    display:flex; align-items:center; gap:.9rem;
+    display:flex;align-items:center;gap:1rem;
     margin:clamp(2.25rem,5vw,3.25rem) 0;
     color:var(--rule);
   }
   .divider::before,.divider::after{content:"";height:1px;background:currentColor;flex:1;}
   .divider span{
-    width:5px;height:5px;border-radius:50%;
-    background:var(--rose);opacity:.7;flex:none;
+    flex:none;font-family:var(--f-display);font-size:1.1rem;line-height:1;
+    color:var(--rose);opacity:.75;
   }
 
   /* ---------- HERO ---------- */
-  .hero{position:relative;padding-block:clamp(1rem,4vw,2.5rem) 0;}
+  .hero{position:relative;padding-block:clamp(.5rem,3vw,2rem) 0;}
   .hero .bloom{
-    position:absolute; z-index:-1;
-    left:calc(var(--rail) - 4vw); top:-2.5rem;
-    width:min(30rem,70vw); aspect-ratio:1;
+    position:absolute;z-index:-1;
+    left:-6vw;top:-3rem;
+    width:min(32rem,78vw);aspect-ratio:1;
     background:radial-gradient(circle at 50% 50%,var(--glow),transparent 66%);
-    animation:breathe 9s ease-in-out infinite;
+    animation:breathe 10s ease-in-out infinite;
   }
   @keyframes breathe{
-    0%,100%{transform:scale(1);opacity:.85;}
-    50%{transform:scale(1.12);opacity:1;}
+    0%,100%{transform:scale(1);opacity:.8;}
+    50%{transform:scale(1.14);opacity:1;}
   }
 
   .eyebrow{
-    font-size:.66rem;font-weight:600;letter-spacing:.24em;
-    text-transform:uppercase;color:var(--rose);
-    margin:0 0 1.1rem;
+    font-size:.66rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--rose);margin:0 0 1.1rem;
   }
   .eyebrow::after{
     content:"";display:inline-block;width:2.5rem;height:1px;
-    background:var(--rose);opacity:.45;
-    margin-left:.75rem;vertical-align:.32em;
+    background:var(--rose);opacity:.45;margin-left:.75rem;vertical-align:.32em;
   }
 
   h1{
-    font-family:var(--f-display);
-    font-weight:400;
-    font-size:clamp(3.5rem,13vw,7rem);
-    line-height:.94;
-    letter-spacing:-.015em;
-    margin:0;
-    text-wrap:balance;
+    font-family:var(--f-display);font-weight:400;
+    font-size:clamp(3.6rem,14vw,7.5rem);
+    line-height:.92;letter-spacing:-.02em;margin:0;text-wrap:balance;
   }
   h1 em{
-    font-style:italic;font-weight:300;
-    color:var(--rose-deep);
-    display:block;
-    font-size:.42em;
-    letter-spacing:.005em;
-    margin-top:.5rem;
+    display:block;font-style:italic;font-weight:300;
+    color:var(--rose-deep);font-size:.34em;letter-spacing:.01em;margin-top:.6rem;
   }
-  .underline{display:block;width:min(17rem,62%);height:14px;margin-top:.35rem;overflow:visible;}
+  .underline{display:block;width:min(18rem,66%);height:14px;margin-top:.4rem;overflow:visible;}
   .underline path{
     fill:none;stroke:var(--rose);stroke-width:1.6;stroke-linecap:round;opacity:.55;
     stroke-dasharray:340;stroke-dashoffset:340;
-    animation:draw 1.5s cubic-bezier(.22,.9,.3,1) .25s forwards;
+    animation:draw 1.6s cubic-bezier(.22,.9,.3,1) .3s forwards;
   }
   @keyframes draw{to{stroke-dashoffset:0;}}
 
   .lede{
-    font-family:var(--f-display);
-    font-size:clamp(1.3rem,2.9vw,1.72rem);
-    font-weight:300;line-height:1.55;
-    color:var(--ink-soft);
-    max-width:34ch;
-    margin:1.9rem 0 0;
-    text-wrap:pretty;
+    font-family:var(--f-display);font-style:italic;
+    font-size:clamp(1.4rem,3.2vw,1.95rem);
+    font-weight:300;line-height:1.5;color:var(--ink-soft);
+    max-width:26ch;margin:1.9rem 0 0;text-wrap:pretty;
+  }
+  .sub{margin:1.3rem 0 0;max-width:42ch;color:var(--ink-soft);}
+
+  .status{
+    display:inline-flex;align-items:center;gap:.55rem;
+    margin-top:1.6rem;padding:.42rem 1rem;
+    border:1px solid var(--rule);border-radius:999px;
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+    background:var(--blush-wash);
+  }
+  .status i{
+    width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none;
+    box-shadow:0 0 0 0 var(--sage);animation:pulse 2.8s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(147,168,148,.55);}
+    70%{box-shadow:0 0 0 7px rgba(147,168,148,0);}
+    100%{box-shadow:0 0 0 0 rgba(147,168,148,0);}
   }
 
-  .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.1rem;}
+  .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.9rem;}
   .btn{
-    font-family:var(--f-body);
-    font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-    text-decoration:none;
-    padding:.78rem 1.5rem;border-radius:999px;
-    border:1px solid var(--rose);
-    color:var(--rose-deep);background:transparent;
+    font-family:var(--f-body);font-size:.76rem;font-weight:600;
+    letter-spacing:.13em;text-transform:uppercase;text-decoration:none;
+    padding:.8rem 1.55rem;border-radius:999px;
+    border:1px solid var(--rose);color:var(--rose-deep);background:transparent;
     transition:background .35s ease,color .35s ease,transform .35s ease;
   }
   .btn:hover{background:var(--rose);color:var(--paper);transform:translateY(-2px);}
-  .btn.solid{background:var(--rose);color:var(--paper);border-color:var(--rose);}
+  .btn.solid{background:var(--rose);color:var(--paper);}
   .btn.solid:hover{background:var(--rose-deep);border-color:var(--rose-deep);}
 
   /* ---------- PROSE ---------- */
   h2{
-    font-family:var(--f-display);
-    font-weight:400;font-size:clamp(1.85rem,4.4vw,2.6rem);
-    line-height:1.15;letter-spacing:-.01em;
-    margin:0 0 1.1rem;text-wrap:balance;
+    font-family:var(--f-display);font-weight:400;
+    font-size:clamp(1.9rem,4.6vw,2.7rem);
+    line-height:1.14;letter-spacing:-.012em;margin:0 0 1.15rem;text-wrap:balance;
   }
-  h2 em{font-style:italic;color:var(--rose-deep);font-weight:300;}
+  h2 em{font-style:italic;font-weight:300;color:var(--rose-deep);}
   p{margin:0 0 1.15rem;max-width:var(--measure);}
   p:last-child{margin-bottom:0;}
   a{color:var(--rose-deep);text-decoration-thickness:1px;text-underline-offset:3px;}
   a:hover{color:var(--rose);}
   :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:3px;}
 
+  .dropcap::first-letter{
+    float:left;font-family:var(--f-display);font-weight:400;
+    font-size:3.9em;line-height:.82;
+    padding:.06em .1em 0 0;color:var(--rose-deep);
+  }
+
   .pull{
     font-family:var(--f-display);font-style:italic;font-weight:300;
-    font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.5;
-    color:var(--ink-soft);
-    border-left:1px solid var(--rose);
-    padding-left:1.35rem;margin:1.8rem 0 0;max-width:42ch;
+    font-size:clamp(1.3rem,3vw,1.65rem);line-height:1.5;color:var(--ink-soft);
+    border-left:1px solid var(--rose);padding-left:1.4rem;
+    margin:1.9rem 0 0;max-width:40ch;
   }
 
-  /* ---------- WORK LEDGER ---------- */
-  .note{
-    display:inline-flex;align-items:center;gap:.55rem;
-    margin-top:.4rem;padding:.5rem .9rem;
-    border:1px dashed var(--rose);border-radius:999px;
-    font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--rose-deep);background:transparent;
-  }
-  .note::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--rose);flex:none;}
-
-  .ledger{display:flex;flex-direction:column;margin-top:1.6rem;}
+  /* ---------- LEDGER (services / work / promises) ---------- */
+  .ledger{display:flex;flex-direction:column;margin-top:1.7rem;}
   .entry{
-    display:block;text-decoration:none;color:inherit;
-    padding:1.55rem 0;
-    border-top:1px solid var(--rule);
-    position:relative;
-    transition:padding-left .4s cubic-bezier(.22,.9,.3,1);
+    display:block;padding:1.6rem 0;
+    border-top:1px solid var(--rule);position:relative;color:inherit;
   }
   .entry:last-child{border-bottom:1px solid var(--rule);}
   .entry::before{
-    content:"";position:absolute;left:0;top:2.25rem;
+    content:"";position:absolute;left:0;top:2.35rem;
     width:5px;height:5px;border-radius:50%;background:var(--rose);
     opacity:0;transform:scale(.4);
     transition:opacity .35s ease,transform .35s ease;
   }
-  .entry:hover,.entry:focus-visible{padding-left:1.35rem;}
-  .entry:hover::before,.entry:focus-visible::before{opacity:1;transform:scale(1);}
+  a.entry{text-decoration:none;transition:padding-left .4s cubic-bezier(.22,.9,.3,1);}
+  a.entry:hover,a.entry:focus-visible{padding-left:1.4rem;}
+  a.entry:hover::before,a.entry:focus-visible::before{opacity:1;transform:scale(1);}
 
-  .entry-head{display:flex;align-items:baseline;gap:.75rem;flex-wrap:wrap;}
   .entry-name{
-    font-family:var(--f-display);font-size:1.45rem;font-weight:500;
-    line-height:1.25;letter-spacing:-.005em;
+    display:block;font-family:var(--f-display);font-size:1.5rem;font-weight:500;
+    line-height:1.24;letter-spacing:-.005em;
   }
-  .entry:hover .entry-name{color:var(--rose-deep);}
-  .entry-desc{color:var(--ink-soft);margin:.4rem 0 0;max-width:56ch;font-size:.95rem;}
-  .meta{
-    display:flex;flex-wrap:wrap;align-items:center;gap:1.1rem;
-    margin-top:.75rem;
-    font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ink-faint);font-variant-numeric:tabular-nums;
-  }
-  .meta .lang{display:inline-flex;align-items:center;gap:.45rem;color:var(--ink-soft);}
-  .lang i{width:7px;height:7px;border-radius:50%;background:var(--sage);display:inline-block;}
+  a.entry:hover .entry-name{color:var(--rose-deep);}
+  .entry-desc{color:var(--ink-soft);margin:.45rem 0 0;max-width:56ch;font-size:.96rem;}
 
-  /* ---------- GARLAND ---------- */
-  .garland-wrap{overflow-x:auto;padding-bottom:.5rem;margin-top:1.6rem;}
-  .garland{display:block;min-width:520px;width:100%;height:auto;}
-  .garland .vine{fill:none;stroke:var(--sage);stroke-width:1.2;opacity:.55;}
-  .garland .bloom-c{opacity:.85;}
-  .garland .bloom-r{fill:none;stroke:var(--paper);stroke-width:1.5;opacity:.5;}
-  .garland .name{
-    fill:var(--ink);font-family:var(--f-body);font-size:12px;font-weight:600;
-    letter-spacing:.06em;text-anchor:middle;
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem;}
+  .tag{
+    font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ink-soft);border:1px solid var(--rule);
+    padding:.26rem .62rem;border-radius:999px;
   }
-  .garland .pct{
-    fill:var(--ink-faint);font-family:var(--f-body);font-size:11px;
-    letter-spacing:.08em;text-anchor:middle;font-variant-numeric:tabular-nums;
+
+  /* numbered promises */
+  .promise{counter-increment:vow;}
+  .promises{counter-reset:vow;}
+  .promise .entry-name::before{
+    content:counter(vow,decimal-leading-zero);
+    font-family:var(--f-body);font-size:.62rem;font-weight:600;
+    letter-spacing:.18em;color:var(--rose);
+    display:block;margin-bottom:.5rem;
   }
+
+  /* ---------- STACK ---------- */
+  .stack{display:flex;flex-direction:column;gap:1.5rem;margin-top:1.8rem;}
+  .stack-group{display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem;}
+  @media (min-width:620px){
+    .stack-group{grid-template-columns:9.5rem minmax(0,1fr);gap:1.25rem;align-items:baseline;}
+  }
+  .stack-label{
+    font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);padding-top:.3rem;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:.45rem;}
+  .chip{
+    font-size:.8rem;color:var(--ink-soft);
+    background:var(--blush-wash);border:1px solid var(--rule);
+    padding:.32rem .78rem;border-radius:999px;
+    transition:border-color .3s ease,color .3s ease;
+  }
+  .chip:hover{border-color:var(--rose);color:var(--rose-deep);}
 
   /* ---------- CONTACT ---------- */
-  .links{list-style:none;padding:0;margin:1.4rem 0 0;display:flex;flex-direction:column;}
+  .links{list-style:none;padding:0;margin:1.5rem 0 0;display:flex;flex-direction:column;}
   .links li{border-top:1px solid var(--rule);}
   .links li:last-child{border-bottom:1px solid var(--rule);}
   .links a{
     display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    padding:.95rem 0;text-decoration:none;color:var(--ink);
+    padding:1rem 0;text-decoration:none;color:var(--ink);
     transition:padding-left .4s cubic-bezier(.22,.9,.3,1),color .3s ease;
   }
-  .links a:hover{padding-left:.75rem;color:var(--rose-deep);}
-  .links .where{font-family:var(--f-display);font-size:1.2rem;}
+  .links a:hover{padding-left:.8rem;color:var(--rose-deep);}
+  .links .where{font-family:var(--f-display);font-size:1.25rem;}
   .links .what{
-    font-size:.82rem;letter-spacing:.01em;color:var(--ink-faint);
-    font-variant-numeric:tabular-nums;text-align:right;
-    overflow-wrap:anywhere;
+    font-size:.82rem;color:var(--ink-faint);text-align:right;
+    font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
   }
   .links a:hover .what{color:var(--rose);}
 
+  /* ---------- POSTSCRIPT + SEAL ---------- */
+  .closing{
+    display:flex;align-items:flex-start;gap:clamp(1.25rem,4vw,2.5rem);
+    margin-top:2.6rem;flex-wrap:wrap;
+  }
+  .ps{
+    flex:1 1 20rem;
+    font-family:var(--f-display);font-style:italic;font-weight:300;
+    font-size:clamp(1.15rem,2.6vw,1.4rem);line-height:1.55;color:var(--ink-soft);
+    margin:0;max-width:38ch;
+  }
+  .ps b{
+    font-family:var(--f-body);font-style:normal;font-weight:600;
+    font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--rose);display:block;margin-bottom:.5rem;
+  }
+  .seal{
+    flex:none;width:92px;height:92px;border-radius:50%;
+    background:radial-gradient(circle at 34% 30%,var(--seal-a),var(--seal-b) 74%);
+    display:grid;place-items:center;
+    transform:rotate(-7deg);
+    box-shadow:0 6px 18px rgba(142,63,88,.28);
+    position:relative;
+  }
+  .seal::after{
+    content:"";position:absolute;inset:7px;border-radius:50%;
+    border:1px dashed rgba(255,255,255,.42);
+  }
+  .seal span{
+    font-family:var(--f-display);font-style:italic;font-weight:500;
+    font-size:2.5rem;line-height:1;color:#FFF3F5;
+    text-shadow:0 1px 2px rgba(90,30,50,.4);
+  }
+
   footer{
-    margin-top:clamp(3.5rem,8vw,5.5rem);
-    font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    margin-top:clamp(3rem,7vw,4.5rem);padding-top:1.6rem;
+    border-top:1px solid var(--rule);
+    font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
     color:var(--ink-faint);text-align:center;
   }
   footer .heart{color:var(--rose);letter-spacing:0;text-transform:none;font-size:.9rem;}
@@ -311,68 +373,112 @@
 <main class="sheet">
 
   <section class="hero row" id="top">
-    <div class="rail">&#8471; &nbsp;a portfolio</div>
+    <div class="rail"><span class="mark">&#8213; a letter</span></div>
     <div>
       <span class="bloom" aria-hidden="true"></span>
       <p class="eyebrow">A letter from</p>
-      <h1>Lassie<em>who builds with heart</em></h1>
+      <h1>Lassie<em>full-stack developer</em></h1>
       <svg class="underline" viewBox="0 0 340 14" aria-hidden="true" preserveAspectRatio="none">
         <path d="M2 9 C 60 2, 104 12, 158 6 S 268 3, 338 8"></path>
       </svg>
-      <p class="lede">I make things for the web &mdash; carefully, slowly, and with the sense that someone on the other side is going to feel them.</p>
+      <p class="lede">I&rsquo;ve been doing this a long time, and I still like it.</p>
+      <p class="sub">I fix broken systems and build new ones &mdash; online stores, tracking that tells the truth, Android apps that survive the night, and servers that stay up.</p>
+      <p class="status"><i></i>Available for freelance work</p>
       <div class="actions">
-        <a class="btn solid" href="#work">See the work</a>
+        <a class="btn solid" href="#craft">What I do</a>
         <a class="btn" href="#hello">Say hello</a>
       </div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span></span></div>
+  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
 
   <section class="row" id="about">
-    <div class="rail">01 &mdash; About</div>
+    <div class="rail">
+      <span class="mark">01 &mdash; About</span>
+      <span class="aside">four things, done properly</span>
+    </div>
     <div>
-      <h2>Software, written the way <em>letters</em> are written</h2>
+      <h2>I do four things well. I don&rsquo;t try to do <em>everything</em>.</h2>
       <div id="about-body"></div>
-      <p class="pull">Good code is a kindness to whoever reads it next. Usually that&rsquo;s you.</p>
+      <p class="pull">A program can be running and stuck at the same time. Most alerts miss this.</p>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span></span></div>
+  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
+
+  <section class="row" id="craft">
+    <div class="rail">
+      <span class="mark">02 &mdash; Craft</span>
+      <span class="aside">what I&rsquo;m hired for</span>
+    </div>
+    <div>
+      <h2>The <em>work</em> itself</h2>
+      <div class="ledger" id="services"></div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
 
   <section class="row" id="work">
-    <div class="rail">02 &mdash; Work</div>
+    <div class="rail">
+      <span class="mark">03 &mdash; Recent</span>
+      <span class="aside">things I&rsquo;ve shipped</span>
+    </div>
     <div>
-      <h2>Selected <em>keepsakes</em></h2>
-      <p>Things I&rsquo;ve built and kept. Each one taught me something I couldn&rsquo;t have read about.</p>
+      <h2>Recently on my <em>desk</em></h2>
       <div class="ledger" id="ledger"></div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span></span></div>
+  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
 
-  <section class="row" id="garden">
-    <div class="rail">03 &mdash; Garden</div>
+  <section class="row" id="promises">
+    <div class="rail">
+      <span class="mark">04 &mdash; Promises</span>
+      <span class="aside">how I work, every time</span>
+    </div>
     <div>
-      <h2>What grows <em>most often</em></h2>
-      <p>Every bloom is a language, sized by how much of my public work it makes up.</p>
-      <div class="garland-wrap"><svg class="garland" id="garland" role="img" aria-labelledby="garland-t"><title id="garland-t">Languages by share of public repositories</title></svg></div>
+      <h2>What you can <em>hold me to</em></h2>
+      <div class="ledger promises" id="vows"></div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span></span></div>
+  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
+
+  <section class="row" id="stack">
+    <div class="rail">
+      <span class="mark">05 &mdash; Stack</span>
+      <span class="aside">tools I keep sharp</span>
+    </div>
+    <div>
+      <h2>What I build <em>with</em></h2>
+      <p>I use AI tools every day &mdash; Claude Code, Copilot, ChatGPT &mdash; for the repetitive parts. But I read and test every line before it goes into your project. AI writes the first draft. I decide what ships.</p>
+      <div class="stack" id="stack-list"></div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
 
   <section class="row" id="hello">
-    <div class="rail">04 &mdash; Hello</div>
+    <div class="rail">
+      <span class="mark">06 &mdash; Hello</span>
+      <span class="aside">I answer quickly</span>
+    </div>
     <div>
       <h2>Write to <em>me</em></h2>
-      <p>I read everything. Whether it&rsquo;s work, a question, or just something you made that you&rsquo;re proud of &mdash; I&rsquo;d love to hear it.</p>
+      <p>Tell me what&rsquo;s broken, or what you want built. A short message with the real problem in it is worth more than a long brief.</p>
       <ul class="links" id="links"></ul>
+
+      <div class="closing">
+        <p class="ps"><b>Postscript</b>If something is broken in production and nobody knows why &mdash; that is the message I answer fastest.</p>
+        <div class="seal" aria-hidden="true"><span>L</span></div>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>Built by hand <span class="heart">&hearts;</span> &nbsp;&middot;&nbsp; <span id="year"></span></p>
+    <p>Written by hand <span class="heart">&hearts;</span> &nbsp;&middot;&nbsp; <span id="year"></span></p>
   </footer>
 </main>
 
@@ -385,131 +491,127 @@
      and nothing else to keep the site up to date.  */
   var DATA = {
 
-    /* Two or three short paragraphs. Write like you're talking to one person. */
     about: [
-      "I'm a developer who cares about the small things — the way a button answers you, the half-second a page takes to settle, the name of a variable someone will read a year from now. I think craft is just attention, repeated.",
-      "Most of what I build lives on the web. I like problems where the technical answer and the human one have to agree with each other, and I like finishing things."
+      "I'm a full-stack developer. I fix broken systems and build new ones: online stores, tracking and analytics, Android apps, and servers that have to keep running.",
+      "Most of my work starts with someone else's problem — a checkout that loses orders, revenue that doesn't match Analytics, an app the phone kills overnight. I find the cause before I change anything, because restarting a server deletes the information that explains the fault, and the same fault comes back a week later."
     ],
 
-    /* PREVIEW ENTRIES — replace with your real repositories. */
-    preview: true,
-    repos: [
-      { name: "your-project-one", desc: "One sentence on what it does, and one on why you made it. Keep it human — this is the line people actually read.", url: "https://github.com/", lang: "TypeScript", color: "#C4708A", stars: "—", updated: "Replace me" },
-      { name: "your-project-two", desc: "The thing you're proudest of. Say what was hard about it, not just what it is.", url: "https://github.com/", lang: "Python", color: "#D4A574", stars: "—", updated: "Replace me" },
-      { name: "your-project-three", desc: "Even a small tool counts, if you use it. Especially if you use it.", url: "https://github.com/", lang: "Go", color: "#93A894", stars: "—", updated: "Replace me" }
+    services: [
+      {
+        name: "Online stores",
+        desc: "Shopify, WooCommerce and PrestaShop. I set up the product catalog so it stays easy to manage later, and I test the checkout with a real payment before launch. After handover you can change prices and products yourself, without calling a developer.",
+        tags: ["Shopify", "WooCommerce", "PrestaShop"]
+      },
+      {
+        name: "Tracking that matches your sales",
+        desc: "GA4, Google Tag Manager, Google Ads and Meta CAPI. When revenue doesn't match what Analytics reports, it's usually one of three things: the data layer, a missing transaction ID, or a payment gateway that breaks the session. I find the cause, show you the proof, then fix it.",
+        tags: ["GA4", "Tag Manager", "Google Ads", "Meta CAPI"]
+      },
+      {
+        name: "Android apps that keep running",
+        desc: "Kotlin, foreground services, AccessibilityService, audio and speech processing on the device. I measure battery use while I build, not afterwards — and I test on phones from the brands that shut down background apps without warning, because those are the phones your users have.",
+        tags: ["Kotlin", "Foreground services", "On-device audio"]
+      },
+      {
+        name: "Servers that stay up",
+        desc: "C#/.NET workers on a Linux VPS, systemd, Docker, log rotation and watchdogs. My monitoring checks whether the data is still arriving, not only whether the program is running.",
+        tags: ["C#/.NET", "Linux VPS", "systemd", "Docker"]
+      }
     ],
 
-    /* Percentages should sum to ~100. Colours run rose -> gold -> sage. */
-    languages: [
-      { name: "TypeScript", pct: 42.5, color: "#C4708A" },
-      { name: "Python",     pct: 21.8, color: "#CE8A93" },
-      { name: "CSS",        pct: 14.2, color: "#D4A574" },
-      { name: "Go",         pct: 11.0, color: "#C0A06B" },
-      { name: "Rust",       pct:  6.3, color: "#A8AE8A" },
-      { name: "Shell",      pct:  4.2, color: "#93A894" }
+    work: [
+      {
+        name: "Speech recognition on Android phones",
+        desc: "A small, cheap voice detector runs first, and the large model only starts when it hears something. Less battery, fewer wrong results.",
+        tags: ["Kotlin", "On-device speech"]
+      },
+      {
+        name: "Tracking audits for online stores",
+        desc: "I compare the store's real sales against GA4, Google Ads and Meta, order by order, until all four numbers match.",
+        tags: ["GA4", "Google Ads", "Meta CAPI"]
+      },
+      {
+        name: "Customer service automation for shops",
+        desc: "WhatsApp and Instagram chatbots that hand the conversation to a person after two failed answers. They never guess stock levels or sizes, and every question they can't answer is saved for the shop to review.",
+        tags: ["WhatsApp", "Instagram", "Chatbots"]
+      }
+    ],
+
+    promises: [
+      { name: "I find the cause before I change anything.", desc: "When a server breaks, most people restart it first. Restarting deletes the information that explains the problem, and the same problem comes back a week later." },
+      { name: "I show the proof, then fix it.", desc: "I don't make a change until I can explain the cause in plain words that you can check yourself." },
+      { name: "I break things on purpose to test them.", desc: "If I tell you something runs 24/7, it means I have already killed the program, restarted the server and cut the connection, to make sure it recovers on its own." },
+      { name: "I write everything down for you.", desc: "Every project ends with a written guide and a screen recording. You should be able to handle normal changes without me." }
+    ],
+
+    stack: [
+      { group: "Languages",       items: ["C#", "Kotlin", "TypeScript", "JavaScript", "PHP", "Python"] },
+      { group: "Web",             items: ["Next.js", "React", ".NET", "Node.js", "WordPress"] },
+      { group: "Commerce",        items: ["Shopify", "WooCommerce", "PrestaShop"] },
+      { group: "Mobile",          items: ["Android", "Jetpack Compose"] },
+      { group: "Data & tracking", items: ["GA4", "Tag Manager", "PostgreSQL", "SQLite"] },
+      { group: "Ops",             items: ["Linux", "Docker", "Nginx", "Git"] },
+      { group: "AI-assisted",     items: ["Claude", "GitHub Copilot", "OpenAI"] }
     ],
 
     links: [
-      { where: "Email",    what: "lassie.solution@gmail.com", url: "mailto:lassie.solution@gmail.com" },
-      { where: "Telegram", what: "@lassie_dev",               url: "https://t.me/lassie_dev" },
-      { where: "WhatsApp", what: "+1 224 683 2338",           url: "https://wa.me/12246832338" },
-      { where: "GitHub",   what: "the work",                  url: "https://github.com/" }
+      { where: "Telegram", what: "@lassie_dev",                url: "https://t.me/lassie_dev" },
+      { where: "WhatsApp", what: "+1 224 683 2338",            url: "https://wa.me/12246832338" },
+      { where: "Email",    what: "lassie.solution@gmail.com",  url: "mailto:lassie.solution@gmail.com" },
+      { where: "GitHub",   what: "@lassie-dev",                url: "https://github.com/lassie-dev" }
     ]
   };
   /* ================================================ */
 
   function el(tag, cls){ var n = document.createElement(tag); if (cls) n.className = cls; return n; }
 
+  function entry(item, cls){
+    var e = el("div", cls ? "entry " + cls : "entry");
+    var n = el("span", "entry-name"); n.textContent = item.name;
+    e.appendChild(n);
+    var d = el("p", "entry-desc"); d.textContent = item.desc;
+    e.appendChild(d);
+    if (item.tags && item.tags.length){
+      var t = el("div", "tags");
+      item.tags.forEach(function(tag){
+        var s = el("span", "tag"); s.textContent = tag; t.appendChild(s);
+      });
+      e.appendChild(t);
+    }
+    return e;
+  }
+
   /* ---- about ---- */
   var about = document.getElementById("about-body");
-  DATA.about.forEach(function(para){
-    var p = el("p"); p.textContent = para; about.appendChild(p);
+  DATA.about.forEach(function(para, i){
+    var p = el("p", i === 0 ? "dropcap" : null);
+    p.textContent = para;
+    about.appendChild(p);
   });
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ---- work ledger ---- */
+  /* ---- services / recent work / promises ---- */
+  var svc = document.getElementById("services");
+  DATA.services.forEach(function(s){ svc.appendChild(entry(s)); });
+
   var ledger = document.getElementById("ledger");
-  if (DATA.preview){
-    var note = el("p", "note");
-    note.textContent = "Preview entries — swap in your real repositories";
-    ledger.parentNode.insertBefore(note, ledger);
-  }
-  DATA.repos.forEach(function(r){
-    var a = el("a", "entry");
-    a.href = r.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+  DATA.work.forEach(function(w){ ledger.appendChild(entry(w)); });
 
-    var head = el("div", "entry-head");
-    var name = el("span", "entry-name"); name.textContent = r.name;
-    head.appendChild(name);
-    a.appendChild(head);
+  var vows = document.getElementById("vows");
+  DATA.promises.forEach(function(p){ vows.appendChild(entry(p, "promise")); });
 
-    var desc = el("p", "entry-desc"); desc.textContent = r.desc;
-    a.appendChild(desc);
-
-    var meta = el("div", "meta");
-    if (r.lang){
-      var lg = el("span", "lang");
-      var dot = el("i"); if (r.color) dot.style.background = r.color;
-      lg.appendChild(dot);
-      lg.appendChild(document.createTextNode(r.lang));
-      meta.appendChild(lg);
-    }
-    if (r.stars){ var s = el("span"); s.textContent = "★ " + r.stars; meta.appendChild(s); }
-    if (r.updated){ var u = el("span"); u.textContent = r.updated; meta.appendChild(u); }
-    a.appendChild(meta);
-
-    ledger.appendChild(a);
+  /* ---- stack ---- */
+  var stack = document.getElementById("stack-list");
+  DATA.stack.forEach(function(g){
+    var wrap = el("div", "stack-group");
+    var lbl = el("div", "stack-label"); lbl.textContent = g.group;
+    var chips = el("div", "chips");
+    g.items.forEach(function(it){
+      var c = el("span", "chip"); c.textContent = it; chips.appendChild(c);
+    });
+    wrap.appendChild(lbl); wrap.appendChild(chips);
+    stack.appendChild(wrap);
   });
-
-  /* ---- language garland ---- */
-  (function(){
-    var svg = document.getElementById("garland"), L = DATA.languages;
-    if (!L.length){ svg.parentNode.parentNode.style.display = "none"; return; }
-
-    var NS = "http://www.w3.org/2000/svg";
-    var W = 130 * L.length + 60, H = 244, padX = 70;
-    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-
-    var step = L.length > 1 ? (W - padX * 2) / (L.length - 1) : 0;
-    var pts = L.map(function(l, i){
-      return {
-        x: L.length === 1 ? W / 2 : padX + i * step,
-        y: 106 + Math.sin(i * 0.95 + 0.4) * 24,
-        r: 15 + 38 * Math.sqrt(l.pct / 100),
-        l: l
-      };
-    });
-
-    var d = "M " + pts[0].x + " " + pts[0].y;
-    for (var i = 1; i < pts.length; i++){
-      var p0 = pts[i-1], p1 = pts[i], mx = (p0.x + p1.x) / 2;
-      d += " C " + mx + " " + p0.y + ", " + mx + " " + p1.y + ", " + p1.x + " " + p1.y;
-    }
-    var vine = document.createElementNS(NS, "path");
-    vine.setAttribute("d", d); vine.setAttribute("class", "vine");
-    svg.appendChild(vine);
-
-    pts.forEach(function(p){
-      var c = document.createElementNS(NS, "circle");
-      c.setAttribute("cx", p.x); c.setAttribute("cy", p.y); c.setAttribute("r", p.r.toFixed(1));
-      c.setAttribute("fill", p.l.color); c.setAttribute("class", "bloom-c");
-      svg.appendChild(c);
-
-      var ring = document.createElementNS(NS, "circle");
-      ring.setAttribute("cx", p.x); ring.setAttribute("cy", p.y);
-      ring.setAttribute("r", Math.max(p.r - 6, 3).toFixed(1));
-      ring.setAttribute("class", "bloom-r");
-      svg.appendChild(ring);
-
-      var t = document.createElementNS(NS, "text");
-      t.setAttribute("x", p.x); t.setAttribute("y", 196); t.setAttribute("class", "name");
-      t.textContent = p.l.name; svg.appendChild(t);
-
-      var pc = document.createElementNS(NS, "text");
-      pc.setAttribute("x", p.x); pc.setAttribute("y", 215); pc.setAttribute("class", "pct");
-      pc.textContent = p.l.pct.toFixed(1) + "%"; svg.appendChild(pc);
-    });
-  })();
 
   /* ---- contact links ---- */
   var ul = document.getElementById("links");
@@ -545,17 +647,17 @@
     }
     function seed(){
       petals = [];
-      var n = Math.round(Math.min(26, Math.max(10, W / 58)));
+      var n = Math.round(Math.min(30, Math.max(12, W / 52)));
       for (var i = 0; i < n; i++){
         petals.push({
           x: Math.random() * W,
           y: Math.random() * H,
-          r: 4 + Math.random() * 11,
-          sp: 0.12 + Math.random() * 0.34,
+          r: 4 + Math.random() * 12,
+          sp: 0.10 + Math.random() * 0.32,
           dr: (Math.random() - 0.5) * 0.28,
           a: Math.random() * Math.PI * 2,
           va: (Math.random() - 0.5) * 0.008,
-          o: 0.16 + Math.random() * 0.3,
+          o: 0.14 + Math.random() * 0.3,
           t: Math.random() < 0.5 ? TA : TB
         });
       }
@@ -566,7 +668,7 @@
       ctx.rotate(p.a);
       ctx.fillStyle = "rgba(" + p.t + "," + p.o + ")";
       ctx.beginPath();
-      ctx.ellipse(0, 0, p.r, p.r * 0.56, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, p.r, p.r * 0.54, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }

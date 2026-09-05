@@ -1,0 +1,5 @@
+# Only the built page needs to ship. Source and tooling stay local.
+content.html
+build.ps1
+README.md
+.gitignore

@@ -32,11 +32,11 @@ $head = @'
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Lassie - a developer who builds with heart. Selected work, languages, and a way to say hello.">
+<meta name="description" content="Lassie - full-stack developer. Online stores, tracking that matches your sales, Android apps that keep running, and servers that stay up. Available for freelance work.">
 <meta name="theme-color" content="#FDF6F2" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1E1620" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Lassie's Letter">
-<meta property="og:description" content="A developer who builds with heart.">
+<meta property="og:description" content="I fix broken systems and build new ones. Stores, tracking, Android, servers.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127800;</text></svg>">
