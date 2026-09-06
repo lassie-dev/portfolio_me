@@ -32,14 +32,14 @@ $head = @'
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Lassie - full-stack developer. Online stores, tracking that matches your sales, Android apps that keep running, and servers that stay up. Available for freelance work.">
-<meta name="theme-color" content="#FDF6F2" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1E1620" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="Lassie's Letter">
-<meta property="og:description" content="I fix broken systems and build new ones. Stores, tracking, Android, servers.">
+<meta name="description" content="Lassie - senior full-stack engineer. Commerce platforms, analytics and attribution that reconcile, Android apps that survive real devices, and background services expected never to stop. Available for contract work.">
+<meta name="theme-color" content="#FCFCFB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0D0F" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Lassie - Senior Full-Stack Engineer">
+<meta property="og:description" content="Commerce, analytics, Android and always-on backend services. I diagnose before I change anything, and I prove the cause before I ship the fix.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>&#127800;</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23141416'/><text x='16' y='23' text-anchor='middle' font-family='monospace' font-size='19' font-weight='700' fill='%23E09A5F'>L</text></svg>">
 __HEAD_EXTRAS__
 <style>
   html{color-scheme:light dark}
@@ -58,6 +58,16 @@ $tail = @'
 </body>
 </html>
 '@
+
+# --- warn about unfilled placeholders, e.g. ((N)) or ((X%)) ---
+$slots = [regex]::Matches($content, '\(\([^)]{1,40}\)\)') |
+         ForEach-Object { $_.Value } |
+         Where-Object { $_ -ne '(( ... ))' } |
+         Select-Object -Unique
+if ($slots) {
+  Write-Warning ("Unfilled placeholders still in content.html: " + ($slots -join ', '))
+  Write-Warning "Replace these with real figures before deploying."
+}
 
 $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 [System.IO.File]::WriteAllText((Join-Path $here 'index.html'), ($head + "`n" + $content + $tail), $utf8NoBom)

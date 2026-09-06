@@ -1,700 +1,933 @@
-<title>Lassie's Letter</title>
+<title>Lassie — Senior Full-Stack Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Karla:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
+  /* ---------------- tokens ---------------- */
   :root{
-    --paper:#FDF6F2;
-    --paper-warm:#F8EBE4;
-    --ink:#3B2A31;
-    --ink-soft:#6E5761;
-    --ink-faint:#9C8891;
-    --rose:#C4708A;
-    --rose-deep:#A9526E;
-    --blush:#F7D4DA;
-    --blush-wash:#FBEAEC;
-    --gold:#C0A06B;
-    --sage:#93A894;
-    --rule:#EBD7D0;
-    --glow:rgba(196,112,138,.16);
-    --seal-a:#C4708A;
-    --seal-b:#8E3F58;
-    --grain:.30;
-    --petal-a:236,183,193;
-    --petal-b:246,214,204;
+    --bg:#FCFCFB;
+    --bg-2:#F5F5F2;
+    --panel:#FFFFFF;
+    --bg-blur:rgba(252,252,251,.86);
 
-    --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
-    --f-body:"Karla","Helvetica Neue",Arial,sans-serif;
+    --ink:#141416;
+    --ink-2:#52525B;
+    --ink-3:#8A8A93;
 
-    --measure:63ch;
-    --gutter:clamp(1.25rem,5vw,3.5rem);
-    --rail:clamp(0px,7vw,10rem);
+    --line:#E6E6E1;
+    --line-2:#D3D3CC;
+
+    --accent:#A2551F;
+    --accent-2:#8A461A;
+    --accent-soft:rgba(162,85,31,.09);
+    --ok:#2E7D52;
+    --ok-ring:rgba(46,125,82,.22);
+
+    --shadow:0 1px 2px rgba(20,20,22,.04),0 10px 28px -14px rgba(20,20,22,.12);
+
+    --f-sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+    --gutter:clamp(1.15rem,4vw,2.5rem);
+    --maxw:1080px;
+    --rail:10.5rem;
   }
 
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
-      --paper:#1E1620;
-      --paper-warm:#271C29;
-      --ink:#F3E4E8;
-      --ink-soft:#C6AEB8;
-      --ink-faint:#8E7885;
-      --rose:#E39BB0;
-      --rose-deep:#F0B6C7;
-      --blush:#4A2E3B;
-      --blush-wash:#2C1F2A;
-      --gold:#D9BC84;
-      --sage:#A7BCA8;
-      --rule:#3A2A35;
-      --glow:rgba(227,155,176,.20);
-      --seal-a:#E39BB0;
-      --seal-b:#A9526E;
-      --grain:.13;
-      --petal-a:120,72,90;
-      --petal-b:88,58,74;
+      --bg:#0D0D0F;
+      --bg-2:#151519;
+      --panel:#141417;
+      --bg-blur:rgba(13,13,15,.86);
+
+      --ink:#EDEDEF;
+      --ink-2:#A5A5AE;
+      --ink-3:#71717A;
+
+      --line:#26262B;
+      --line-2:#35353C;
+
+      --accent:#E09A5F;
+      --accent-2:#F0B67E;
+      --accent-soft:rgba(224,154,95,.12);
+      --ok:#4ECB86;
+      --ok-ring:rgba(78,203,134,.20);
+
+      --shadow:0 1px 2px rgba(0,0,0,.40),0 10px 28px -14px rgba(0,0,0,.70);
     }
   }
   :root[data-theme="dark"]{
-    --paper:#1E1620;
-    --paper-warm:#271C29;
-    --ink:#F3E4E8;
-    --ink-soft:#C6AEB8;
-    --ink-faint:#8E7885;
-    --rose:#E39BB0;
-    --rose-deep:#F0B6C7;
-    --blush:#4A2E3B;
-    --blush-wash:#2C1F2A;
-    --gold:#D9BC84;
-    --sage:#A7BCA8;
-    --rule:#3A2A35;
-    --glow:rgba(227,155,176,.20);
-    --seal-a:#E39BB0;
-    --seal-b:#A9526E;
-    --grain:.13;
-    --petal-a:120,72,90;
-    --petal-b:88,58,74;
+    --bg:#0D0D0F;
+    --bg-2:#151519;
+    --panel:#141417;
+    --bg-blur:rgba(13,13,15,.86);
+
+    --ink:#EDEDEF;
+    --ink-2:#A5A5AE;
+    --ink-3:#71717A;
+
+    --line:#26262B;
+    --line-2:#35353C;
+
+    --accent:#E09A5F;
+    --accent-2:#F0B67E;
+    --accent-soft:rgba(224,154,95,.12);
+    --ok:#4ECB86;
+    --ok-ring:rgba(78,203,134,.20);
+
+    --shadow:0 1px 2px rgba(0,0,0,.40),0 10px 28px -14px rgba(0,0,0,.70);
   }
 
-  *,*::before,*::after{box-sizing:border-box;}
-
+  /* ---------------- base ---------------- */
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:5rem}
   body{
-    margin:0;
-    background:var(--paper);
+    background:var(--bg);
     color:var(--ink);
-    font-family:var(--f-body);
+    font-family:var(--f-sans);
     font-size:16px;
-    line-height:1.75;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    font-feature-settings:"cv02","cv03","cv04","calt";
   }
+  ::selection{background:var(--accent-soft);color:var(--ink)}
 
-  /* paper grain */
-  body::before{
-    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-    opacity:var(--grain);mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
-  }
+  a{color:inherit}
+  h1,h2,h3,h4{margin:0;font-weight:600;letter-spacing:-.025em;line-height:1.18}
+  p{margin:0}
+  ul{margin:0}
 
-  #petals{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
 
-  .sheet{
-    position:relative;z-index:2;
-    max-width:calc(var(--measure) + var(--rail) + var(--gutter)*2);
-    margin:0 auto;
-    padding:clamp(2.5rem,7vw,5rem) var(--gutter) clamp(3rem,8vw,5rem);
-  }
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:5px}
 
-  /* ---- letter spine ---- */
-  .row{
-    display:grid;
-    grid-template-columns:var(--rail) minmax(0,1fr);
-    column-gap:clamp(1rem,3vw,2.25rem);
-    align-items:start;
+  .skip{
+    position:absolute;left:-9999px;top:0;z-index:100;
+    background:var(--panel);color:var(--ink);
+    border:1px solid var(--line-2);padding:.6rem 1rem;border-radius:8px;
+    font-size:.85rem;text-decoration:none;
   }
-  .rail{padding-top:.9rem;}
-  .rail .mark{
-    display:block;
-    font-size:.62rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--ink-faint);white-space:nowrap;
-  }
-  .rail .aside{
-    display:block;margin-top:.6rem;
-    font-family:var(--f-display);font-style:italic;font-weight:300;
-    font-size:1rem;line-height:1.4;color:var(--rose-deep);opacity:.85;
-  }
-  @media (max-width:760px){
-    .row{grid-template-columns:1fr;row-gap:.4rem;}
-    .rail{padding-top:0;display:flex;align-items:baseline;gap:.85rem;flex-wrap:wrap;}
-    .rail .aside{margin-top:0;font-size:.95rem;}
-  }
+  .skip:focus{left:var(--gutter);top:.6rem}
 
-  section + section{margin-top:clamp(3rem,7vw,5rem);}
-
-  /* ---- fleuron divider ---- */
-  .divider{
-    display:flex;align-items:center;gap:1rem;
-    margin:clamp(2.25rem,5vw,3.25rem) 0;
-    color:var(--rule);
+  /* ---------------- nav ---------------- */
+  .nav{
+    position:sticky;top:0;z-index:40;
+    background:var(--bg-blur);
+    -webkit-backdrop-filter:saturate(180%) blur(12px);
+    backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid transparent;
+    transition:border-color .2s ease;
   }
-  .divider::before,.divider::after{content:"";height:1px;background:currentColor;flex:1;}
-  .divider span{
-    flex:none;font-family:var(--f-display);font-size:1.1rem;line-height:1;
-    color:var(--rose);opacity:.75;
+  .nav.stuck{border-bottom-color:var(--line)}
+  .nav-in{
+    max-width:var(--maxw);margin:0 auto;
+    padding:.7rem var(--gutter);
+    display:flex;align-items:center;gap:.75rem;
   }
-
-  /* ---------- HERO ---------- */
-  .hero{position:relative;padding-block:clamp(.5rem,3vw,2rem) 0;}
-  .hero .bloom{
-    position:absolute;z-index:-1;
-    left:-6vw;top:-3rem;
-    width:min(32rem,78vw);aspect-ratio:1;
-    background:radial-gradient(circle at 50% 50%,var(--glow),transparent 66%);
-    animation:breathe 10s ease-in-out infinite;
-  }
-  @keyframes breathe{
-    0%,100%{transform:scale(1);opacity:.8;}
-    50%{transform:scale(1.14);opacity:1;}
-  }
-
-  .eyebrow{
-    font-size:.66rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;
-    color:var(--rose);margin:0 0 1.1rem;
-  }
-  .eyebrow::after{
-    content:"";display:inline-block;width:2.5rem;height:1px;
-    background:var(--rose);opacity:.45;margin-left:.75rem;vertical-align:.32em;
-  }
-
-  h1{
-    font-family:var(--f-display);font-weight:400;
-    font-size:clamp(3.6rem,14vw,7.5rem);
-    line-height:.92;letter-spacing:-.02em;margin:0;text-wrap:balance;
-  }
-  h1 em{
-    display:block;font-style:italic;font-weight:300;
-    color:var(--rose-deep);font-size:.34em;letter-spacing:.01em;margin-top:.6rem;
-  }
-  .underline{display:block;width:min(18rem,66%);height:14px;margin-top:.4rem;overflow:visible;}
-  .underline path{
-    fill:none;stroke:var(--rose);stroke-width:1.6;stroke-linecap:round;opacity:.55;
-    stroke-dasharray:340;stroke-dashoffset:340;
-    animation:draw 1.6s cubic-bezier(.22,.9,.3,1) .3s forwards;
-  }
-  @keyframes draw{to{stroke-dashoffset:0;}}
-
-  .lede{
-    font-family:var(--f-display);font-style:italic;
-    font-size:clamp(1.4rem,3.2vw,1.95rem);
-    font-weight:300;line-height:1.5;color:var(--ink-soft);
-    max-width:26ch;margin:1.9rem 0 0;text-wrap:pretty;
-  }
-  .sub{margin:1.3rem 0 0;max-width:42ch;color:var(--ink-soft);}
-
-  .status{
-    display:inline-flex;align-items:center;gap:.55rem;
-    margin-top:1.6rem;padding:.42rem 1rem;
-    border:1px solid var(--rule);border-radius:999px;
-    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
-    background:var(--blush-wash);
-  }
-  .status i{
-    width:6px;height:6px;border-radius:50%;background:var(--sage);flex:none;
-    box-shadow:0 0 0 0 var(--sage);animation:pulse 2.8s ease-out infinite;
-  }
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(147,168,148,.55);}
-    70%{box-shadow:0 0 0 7px rgba(147,168,148,0);}
-    100%{box-shadow:0 0 0 0 rgba(147,168,148,0);}
-  }
-
-  .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.9rem;}
-  .btn{
-    font-family:var(--f-body);font-size:.76rem;font-weight:600;
-    letter-spacing:.13em;text-transform:uppercase;text-decoration:none;
-    padding:.8rem 1.55rem;border-radius:999px;
-    border:1px solid var(--rose);color:var(--rose-deep);background:transparent;
-    transition:background .35s ease,color .35s ease,transform .35s ease;
-  }
-  .btn:hover{background:var(--rose);color:var(--paper);transform:translateY(-2px);}
-  .btn.solid{background:var(--rose);color:var(--paper);}
-  .btn.solid:hover{background:var(--rose-deep);border-color:var(--rose-deep);}
-
-  /* ---------- PROSE ---------- */
-  h2{
-    font-family:var(--f-display);font-weight:400;
-    font-size:clamp(1.9rem,4.6vw,2.7rem);
-    line-height:1.14;letter-spacing:-.012em;margin:0 0 1.15rem;text-wrap:balance;
-  }
-  h2 em{font-style:italic;font-weight:300;color:var(--rose-deep);}
-  p{margin:0 0 1.15rem;max-width:var(--measure);}
-  p:last-child{margin-bottom:0;}
-  a{color:var(--rose-deep);text-decoration-thickness:1px;text-underline-offset:3px;}
-  a:hover{color:var(--rose);}
-  :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:3px;}
-
-  .dropcap::first-letter{
-    float:left;font-family:var(--f-display);font-weight:400;
-    font-size:3.9em;line-height:.82;
-    padding:.06em .1em 0 0;color:var(--rose-deep);
-  }
-
-  .pull{
-    font-family:var(--f-display);font-style:italic;font-weight:300;
-    font-size:clamp(1.3rem,3vw,1.65rem);line-height:1.5;color:var(--ink-soft);
-    border-left:1px solid var(--rose);padding-left:1.4rem;
-    margin:1.9rem 0 0;max-width:40ch;
-  }
-
-  /* ---------- LEDGER (services / work / promises) ---------- */
-  .ledger{display:flex;flex-direction:column;margin-top:1.7rem;}
-  .entry{
-    display:block;padding:1.6rem 0;
-    border-top:1px solid var(--rule);position:relative;color:inherit;
-  }
-  .entry:last-child{border-bottom:1px solid var(--rule);}
-  .entry::before{
-    content:"";position:absolute;left:0;top:2.35rem;
-    width:5px;height:5px;border-radius:50%;background:var(--rose);
-    opacity:0;transform:scale(.4);
-    transition:opacity .35s ease,transform .35s ease;
-  }
-  a.entry{text-decoration:none;transition:padding-left .4s cubic-bezier(.22,.9,.3,1);}
-  a.entry:hover,a.entry:focus-visible{padding-left:1.4rem;}
-  a.entry:hover::before,a.entry:focus-visible::before{opacity:1;transform:scale(1);}
-
-  .entry-name{
-    display:block;font-family:var(--f-display);font-size:1.5rem;font-weight:500;
-    line-height:1.24;letter-spacing:-.005em;
-  }
-  a.entry:hover .entry-name{color:var(--rose-deep);}
-  .entry-desc{color:var(--ink-soft);margin:.45rem 0 0;max-width:56ch;font-size:.96rem;}
-
-  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem;}
-  .tag{
-    font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ink-soft);border:1px solid var(--rule);
-    padding:.26rem .62rem;border-radius:999px;
-  }
-
-  /* numbered promises */
-  .promise{counter-increment:vow;}
-  .promises{counter-reset:vow;}
-  .promise .entry-name::before{
-    content:counter(vow,decimal-leading-zero);
-    font-family:var(--f-body);font-size:.62rem;font-weight:600;
-    letter-spacing:.18em;color:var(--rose);
-    display:block;margin-bottom:.5rem;
-  }
-
-  /* ---------- STACK ---------- */
-  .stack{display:flex;flex-direction:column;gap:1.5rem;margin-top:1.8rem;}
-  .stack-group{display:grid;grid-template-columns:minmax(0,1fr);gap:.6rem;}
-  @media (min-width:620px){
-    .stack-group{grid-template-columns:9.5rem minmax(0,1fr);gap:1.25rem;align-items:baseline;}
-  }
-  .stack-label{
-    font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--ink-faint);padding-top:.3rem;
-  }
-  .chips{display:flex;flex-wrap:wrap;gap:.45rem;}
-  .chip{
-    font-size:.8rem;color:var(--ink-soft);
-    background:var(--blush-wash);border:1px solid var(--rule);
-    padding:.32rem .78rem;border-radius:999px;
-    transition:border-color .3s ease,color .3s ease;
-  }
-  .chip:hover{border-color:var(--rose);color:var(--rose-deep);}
-
-  /* ---------- CONTACT ---------- */
-  .links{list-style:none;padding:0;margin:1.5rem 0 0;display:flex;flex-direction:column;}
-  .links li{border-top:1px solid var(--rule);}
-  .links li:last-child{border-bottom:1px solid var(--rule);}
-  .links a{
-    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    padding:1rem 0;text-decoration:none;color:var(--ink);
-    transition:padding-left .4s cubic-bezier(.22,.9,.3,1),color .3s ease;
-  }
-  .links a:hover{padding-left:.8rem;color:var(--rose-deep);}
-  .links .where{font-family:var(--f-display);font-size:1.25rem;}
-  .links .what{
-    font-size:.82rem;color:var(--ink-faint);text-align:right;
-    font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
-  }
-  .links a:hover .what{color:var(--rose);}
-
-  /* ---------- POSTSCRIPT + SEAL ---------- */
-  .closing{
-    display:flex;align-items:flex-start;gap:clamp(1.25rem,4vw,2.5rem);
-    margin-top:2.6rem;flex-wrap:wrap;
-  }
-  .ps{
-    flex:1 1 20rem;
-    font-family:var(--f-display);font-style:italic;font-weight:300;
-    font-size:clamp(1.15rem,2.6vw,1.4rem);line-height:1.55;color:var(--ink-soft);
-    margin:0;max-width:38ch;
-  }
-  .ps b{
-    font-family:var(--f-body);font-style:normal;font-weight:600;
-    font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--rose);display:block;margin-bottom:.5rem;
-  }
-  .seal{
-    flex:none;width:92px;height:92px;border-radius:50%;
-    background:radial-gradient(circle at 34% 30%,var(--seal-a),var(--seal-b) 74%);
+  .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;margin-right:auto}
+  .brand .glyph{
+    width:27px;height:27px;flex:none;border-radius:8px;
+    background:var(--ink);color:var(--bg);
     display:grid;place-items:center;
-    transform:rotate(-7deg);
-    box-shadow:0 6px 18px rgba(142,63,88,.28);
-    position:relative;
+    font-family:var(--f-mono);font-size:.78rem;font-weight:500;
   }
-  .seal::after{
-    content:"";position:absolute;inset:7px;border-radius:50%;
-    border:1px dashed rgba(255,255,255,.42);
-  }
-  .seal span{
-    font-family:var(--f-display);font-style:italic;font-weight:500;
-    font-size:2.5rem;line-height:1;color:#FFF3F5;
-    text-shadow:0 1px 2px rgba(90,30,50,.4);
+  .brand .who{display:flex;flex-direction:column;line-height:1.25}
+  .brand .who b{font-size:.9rem;font-weight:600;letter-spacing:-.02em}
+  .brand .who small{
+    font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);
   }
 
-  footer{
-    margin-top:clamp(3rem,7vw,4.5rem);padding-top:1.6rem;
-    border-top:1px solid var(--rule);
-    font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ink-faint);text-align:center;
+  .nav-links{display:none;gap:.1rem;align-items:center}
+  @media (min-width:860px){.nav-links{display:flex}}
+  .nav-links a{
+    text-decoration:none;color:var(--ink-2);
+    font-size:.83rem;padding:.38rem .62rem;border-radius:7px;
+    transition:color .15s ease,background .15s ease;
   }
-  footer .heart{color:var(--rose);letter-spacing:0;text-transform:none;font-size:.9rem;}
+  .nav-links a:hover{color:var(--ink);background:var(--bg-2)}
+  .nav-links a.active{color:var(--ink);font-weight:500}
+  .nav-links a.active::before{
+    content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+    background:var(--accent);margin-right:.45rem;vertical-align:middle;
+  }
+
+  .icon-btn{
+    width:34px;height:34px;flex:none;
+    display:grid;place-items:center;
+    border:1px solid var(--line);border-radius:8px;
+    background:transparent;color:var(--ink-2);cursor:pointer;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .icon-btn:hover{color:var(--ink);border-color:var(--line-2);background:var(--bg-2)}
+  .icon-btn svg{
+    width:16px;height:16px;stroke:currentColor;fill:none;
+    stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;
+  }
+
+  /* ---------------- hero ---------------- */
+  .hero{padding-top:clamp(3.25rem,9vw,6.5rem);padding-bottom:clamp(2.25rem,5vw,3.5rem)}
+  .avail{
+    display:inline-flex;align-items:center;gap:.5rem;
+    border:1px solid var(--line);border-radius:999px;
+    padding:.3rem .8rem .3rem .62rem;
+    color:var(--ink-2);background:var(--panel);
+    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;
+  }
+  .avail i{
+    width:6px;height:6px;border-radius:50%;background:var(--ok);flex:none;
+    box-shadow:0 0 0 3px var(--ok-ring);
+    animation:pulse 2.8s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  .hero h1{
+    margin-top:1.35rem;
+    font-size:clamp(2.3rem,6.4vw,4rem);
+    letter-spacing:-.042em;font-weight:600;
+  }
+  .hero h1 .dim{display:block;color:var(--ink-3);font-weight:400}
+  .hero .lede{
+    margin-top:1.4rem;max-width:38em;
+    font-size:clamp(1rem,2vw,1.16rem);color:var(--ink-2);line-height:1.65;
+  }
+  .hero .lede b{color:var(--ink);font-weight:500}
+
+  .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.9rem}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    padding:.6rem 1.05rem;border-radius:9px;
+    border:1px solid var(--line-2);
+    text-decoration:none;font-size:.87rem;font-weight:500;
+    color:var(--ink);background:var(--panel);cursor:pointer;
+    font-family:inherit;
+    transition:transform .15s ease,border-color .15s ease,opacity .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px);border-color:var(--ink-3)}
+  .btn.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .btn.solid:hover{opacity:.87}
+  .btn svg{
+    width:15px;height:15px;stroke:currentColor;fill:none;
+    stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+  }
+
+  .facts{
+    margin-top:clamp(2.25rem,5.5vw,3.5rem);
+    border-top:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  @media (min-width:780px){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  .fact{padding:1.1rem 1.2rem 1.1rem 0;border-bottom:1px solid var(--line)}
+  @media (min-width:780px){
+    .fact{border-bottom:0;border-right:1px solid var(--line);padding-left:1.2rem}
+    .fact:first-child{padding-left:0}
+    .fact:last-child{border-right:0;padding-right:0}
+  }
+  .fact .k{
+    font-family:var(--f-mono);font-size:.62rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-3);
+  }
+  .fact .v{margin-top:.35rem;font-size:.94rem;font-weight:500;letter-spacing:-.012em}
+  .fact .v small{
+    display:block;margin-top:.15rem;
+    font-size:.79rem;font-weight:400;color:var(--ink-2);letter-spacing:0;line-height:1.45;
+  }
+
+  /* ---------------- section frame ---------------- */
+  .section{border-top:1px solid var(--line);padding:clamp(2.75rem,6.5vw,5rem) 0}
+  .layout{display:grid;gap:clamp(1.4rem,3.5vw,2.75rem)}
+  @media (min-width:900px){.layout{grid-template-columns:var(--rail) minmax(0,1fr)}}
+
+  .rail{display:flex;flex-direction:column;gap:.3rem;align-self:start}
+  @media (min-width:900px){.rail{position:sticky;top:5.25rem}}
+  .rail .num{
+    font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);
+  }
+  .rail .ttl{font-size:.88rem;font-weight:600;letter-spacing:-.015em}
+  .rail .note{font-size:.77rem;color:var(--ink-3);line-height:1.5}
+
+  .section h2{font-size:clamp(1.45rem,3.2vw,2rem);letter-spacing:-.032em;max-width:24ch}
+  .section .intro{margin-top:.85rem;max-width:58ch;color:var(--ink-2);font-size:.97rem}
+
+  /* ---------------- case studies ---------------- */
+  .cases{margin-top:1.9rem;display:grid;gap:.85rem}
+  .case{
+    border:1px solid var(--line);border-radius:12px;
+    background:var(--panel);box-shadow:var(--shadow);
+    padding:clamp(1.15rem,2.6vw,1.75rem);
+    transition:border-color .18s ease,transform .18s ease;
+  }
+  .case:hover{border-color:var(--line-2)}
+  .case-top{display:flex;align-items:baseline;gap:.85rem;flex-wrap:wrap}
+  .case-idx{
+    font-family:var(--f-mono);font-size:.68rem;letter-spacing:.1em;
+    color:var(--accent);flex:none;
+  }
+  .case-top h3{font-size:1.09rem;letter-spacing:-.022em;flex:1 1 14rem;min-width:0}
+  .case-role{
+    font-family:var(--f-mono);font-size:.62rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-3);
+    border:1px solid var(--line);border-radius:6px;padding:.16rem .45rem;
+    white-space:nowrap;
+  }
+  .case-ctx{margin-top:.7rem;color:var(--ink-2);font-size:.92rem;max-width:62ch}
+
+  .case-grid{margin-top:1.3rem;display:grid;gap:1.15rem}
+  @media (min-width:700px){.case-grid{grid-template-columns:1fr 1.35fr}}
+  .block .lbl{
+    font-family:var(--f-mono);font-size:.6rem;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--ink-3);
+    padding-bottom:.45rem;margin-bottom:.6rem;border-bottom:1px solid var(--line);
+  }
+  .block p{font-size:.9rem;color:var(--ink-2);line-height:1.6}
+  .block ul{list-style:none;padding:0;display:grid;gap:.5rem}
+  .block li{
+    position:relative;padding-left:1.05rem;
+    font-size:.9rem;color:var(--ink-2);line-height:1.55;
+  }
+  .block li::before{
+    content:"";position:absolute;left:0;top:.62em;
+    width:5px;height:1px;background:var(--ink-3);
+  }
+  .block li b{color:var(--ink);font-weight:500}
+
+  .outcome{margin-top:1.15rem;padding-top:1.05rem;border-top:1px solid var(--line)}
+  .metrics{display:flex;flex-wrap:wrap;gap:1.5rem 2.25rem}
+  .metric .mv{
+    font-family:var(--f-mono);font-size:1.02rem;font-weight:500;
+    color:var(--ink);letter-spacing:-.01em;
+  }
+  .metric .mk{
+    margin-top:.15rem;font-size:.75rem;color:var(--ink-3);max-width:22ch;line-height:1.45;
+  }
+
+  .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1.15rem}
+  .tag{
+    font-family:var(--f-mono);font-size:.66rem;
+    color:var(--ink-2);background:var(--bg-2);
+    border:1px solid var(--line);border-radius:6px;padding:.2rem .5rem;
+  }
+
+  /* ---------------- capabilities ---------------- */
+  .caps{margin-top:1.9rem;display:grid;gap:.85rem}
+  @media (min-width:760px){.caps{grid-template-columns:1fr 1fr}}
+  .cap{
+    border:1px solid var(--line);border-radius:12px;background:var(--panel);
+    padding:clamp(1.05rem,2.2vw,1.4rem);
+    display:flex;flex-direction:column;
+  }
+  .cap h3{font-size:.98rem;letter-spacing:-.02em}
+  .cap .cap-sub{
+    margin-top:.3rem;font-family:var(--f-mono);font-size:.63rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+  }
+  .cap p{margin-top:.75rem;font-size:.88rem;color:var(--ink-2);line-height:1.6;flex:1}
+  .cap .tags{margin-top:1rem}
+
+  /* ---------------- principles ---------------- */
+  .principles{margin-top:1.9rem;border-top:1px solid var(--line)}
+  .principle{
+    display:grid;gap:.4rem;
+    padding:1.15rem 0;border-bottom:1px solid var(--line);
+  }
+  @media (min-width:780px){
+    .principle{grid-template-columns:minmax(0,20rem) minmax(0,1fr);gap:2rem;align-items:baseline}
+  }
+  .principle h3{font-size:.95rem;letter-spacing:-.018em;display:flex;gap:.7rem}
+  .principle h3 span{font-family:var(--f-mono);font-size:.68rem;color:var(--ink-3);font-weight:400;padding-top:.2em}
+  .principle p{font-size:.9rem;color:var(--ink-2);line-height:1.6;max-width:62ch}
+
+  /* ---------------- stack ---------------- */
+  .stack{margin-top:1.9rem;border-top:1px solid var(--line)}
+  .stack-row{display:grid;gap:.6rem;padding:1.05rem 0;border-bottom:1px solid var(--line)}
+  @media (min-width:700px){
+    .stack-row{grid-template-columns:11rem minmax(0,1fr);gap:1.5rem;align-items:baseline}
+  }
+  .stack-row .g{
+    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--ink-3);
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:.4rem}
+  .chip{
+    font-size:.82rem;color:var(--ink-2);
+    border:1px solid var(--line);border-radius:7px;padding:.24rem .58rem;
+    background:var(--panel);
+  }
+  .chip.core{
+    color:var(--ink);border-color:var(--line-2);
+    background:var(--accent-soft);font-weight:500;
+  }
+  .stack-note{
+    margin-top:1.35rem;font-size:.82rem;color:var(--ink-3);
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .stack-note i{
+    width:9px;height:9px;border-radius:3px;flex:none;
+    background:var(--accent-soft);border:1px solid var(--line-2);
+  }
+
+  /* ---------------- contact ---------------- */
+  .links{list-style:none;padding:0;margin-top:1.75rem;border-top:1px solid var(--line)}
+  .links li{border-bottom:1px solid var(--line)}
+  .links a{
+    display:flex;align-items:center;gap:1rem;
+    padding:.95rem .25rem;text-decoration:none;
+    transition:padding-left .18s ease,background .18s ease;
+  }
+  .links a:hover{padding-left:.7rem;background:var(--bg-2)}
+  .links .where{
+    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--ink-3);width:6.5rem;flex:none;
+  }
+  .links .what{font-size:.93rem;color:var(--ink);flex:1;min-width:0;overflow-wrap:anywhere}
+  .links .arrow{
+    color:var(--ink-3);flex:none;transition:transform .18s ease,color .18s ease;
+  }
+  .links a:hover .arrow{transform:translate(2px,-2px);color:var(--accent)}
+  .links svg{
+    width:14px;height:14px;stroke:currentColor;fill:none;
+    stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;display:block;
+  }
+
+  .closing{
+    margin-top:1.9rem;border:1px solid var(--line);border-radius:12px;
+    background:var(--bg-2);padding:1.2rem 1.35rem;
+  }
+  .closing .lbl{
+    font-family:var(--f-mono);font-size:.6rem;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--ink-3);
+  }
+  .closing p{margin-top:.5rem;font-size:.91rem;color:var(--ink-2);line-height:1.6;max-width:60ch}
+
+  .copied{
+    position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,1rem);
+    background:var(--ink);color:var(--bg);
+    font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;
+    padding:.5rem .85rem;border-radius:8px;
+    opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:60;
+  }
+  .copied.show{opacity:1;transform:translate(-50%,0)}
+
+  /* ---------------- footer ---------------- */
+  footer{border-top:1px solid var(--line);padding:1.75rem 0 2.5rem}
+  .foot{
+    display:flex;flex-wrap:wrap;gap:.6rem 1.25rem;align-items:center;
+    font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-3);
+  }
+  .foot .sep{margin-left:auto}
+
+  /* ---------------- motion ---------------- */
+  .reveal{opacity:0;transform:translateY(10px)}
+  .reveal.in{opacity:1;transform:none;transition:opacity .55s ease,transform .55s ease}
 
   @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
-    .underline path{stroke-dashoffset:0;}
+    html{scroll-behavior:auto}
+    *,*::before,*::after{
+      animation-duration:.001ms!important;animation-iteration-count:1!important;
+      transition-duration:.001ms!important;
+    }
+    .reveal{opacity:1;transform:none}
   }
 </style>
 
-<canvas id="petals" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to content</a>
 
-<main class="sheet">
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top">
+      <span class="glyph" aria-hidden="true">L</span>
+      <span class="who">
+        <b>Lassie</b>
+        <small>Full-stack engineer</small>
+      </span>
+    </a>
+    <nav class="nav-links" id="navlinks" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#approach">Approach</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="icon-btn" id="theme" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+      <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+    </button>
+  </div>
+</header>
 
-  <section class="hero row" id="top">
-    <div class="rail"><span class="mark">&#8213; a letter</span></div>
-    <div>
-      <span class="bloom" aria-hidden="true"></span>
-      <p class="eyebrow">A letter from</p>
-      <h1>Lassie<em>full-stack developer</em></h1>
-      <svg class="underline" viewBox="0 0 340 14" aria-hidden="true" preserveAspectRatio="none">
-        <path d="M2 9 C 60 2, 104 12, 158 6 S 268 3, 338 8"></path>
-      </svg>
-      <p class="lede">I&rsquo;ve been doing this a long time, and I still like it.</p>
-      <p class="sub">I fix broken systems and build new ones &mdash; online stores, tracking that tells the truth, Android apps that survive the night, and servers that stay up.</p>
-      <p class="status"><i></i>Available for freelance work</p>
-      <div class="actions">
-        <a class="btn solid" href="#craft">What I do</a>
-        <a class="btn" href="#hello">Say hello</a>
+<main id="main">
+
+  <section class="hero wrap" id="top">
+    <p class="avail"><i aria-hidden="true"></i>Available for senior contract work</p>
+    <h1>Lassie<span class="dim">Senior full-stack engineer</span></h1>
+    <p class="lede" id="hero-lede"></p>
+    <div class="cta">
+      <a class="btn solid" href="#work">
+        Selected work
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn" href="#contact">
+        Start a conversation
+      </a>
+    </div>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap layout">
+      <div class="rail">
+        <span class="num">01</span>
+        <span class="ttl">Selected work</span>
+        <span class="note">Problem, approach, what changed</span>
+      </div>
+      <div>
+        <h2>Systems I designed, shipped and still stand behind</h2>
+        <p class="intro">Four engagements that show how I work end to end &mdash; from the diagnosis, through the design decisions and their trade-offs, to the state the system was left in.</p>
+        <div class="cases" id="cases"></div>
       </div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
-
-  <section class="row" id="about">
-    <div class="rail">
-      <span class="mark">01 &mdash; About</span>
-      <span class="aside">four things, done properly</span>
-    </div>
-    <div>
-      <h2>I do four things well. I don&rsquo;t try to do <em>everything</em>.</h2>
-      <div id="about-body"></div>
-      <p class="pull">A program can be running and stuck at the same time. Most alerts miss this.</p>
-    </div>
-  </section>
-
-  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
-
-  <section class="row" id="craft">
-    <div class="rail">
-      <span class="mark">02 &mdash; Craft</span>
-      <span class="aside">what I&rsquo;m hired for</span>
-    </div>
-    <div>
-      <h2>The <em>work</em> itself</h2>
-      <div class="ledger" id="services"></div>
+  <section class="section" id="capabilities">
+    <div class="wrap layout">
+      <div class="rail">
+        <span class="num">02</span>
+        <span class="ttl">Capabilities</span>
+        <span class="note">Four domains, at depth</span>
+      </div>
+      <div>
+        <h2>Four domains I go deep in, rather than ten I skim</h2>
+        <p class="intro">Each of these is a system I have owned in production &mdash; designed, deployed, monitored and handed over &mdash; not a technology I have read about.</p>
+        <div class="caps" id="caps"></div>
+      </div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
-
-  <section class="row" id="work">
-    <div class="rail">
-      <span class="mark">03 &mdash; Recent</span>
-      <span class="aside">things I&rsquo;ve shipped</span>
-    </div>
-    <div>
-      <h2>Recently on my <em>desk</em></h2>
-      <div class="ledger" id="ledger"></div>
-    </div>
-  </section>
-
-  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
-
-  <section class="row" id="promises">
-    <div class="rail">
-      <span class="mark">04 &mdash; Promises</span>
-      <span class="aside">how I work, every time</span>
-    </div>
-    <div>
-      <h2>What you can <em>hold me to</em></h2>
-      <div class="ledger promises" id="vows"></div>
+  <section class="section" id="approach">
+    <div class="wrap layout">
+      <div class="rail">
+        <span class="num">03</span>
+        <span class="ttl">Approach</span>
+        <span class="note">How every engagement runs</span>
+      </div>
+      <div>
+        <h2>Engineering standards you can hold me to</h2>
+        <p class="intro">These are not aspirations. They are the working rules that decide what I do on the first day of an engagement and what I refuse to do on the last.</p>
+        <div class="principles" id="principles"></div>
+      </div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
-
-  <section class="row" id="stack">
-    <div class="rail">
-      <span class="mark">05 &mdash; Stack</span>
-      <span class="aside">tools I keep sharp</span>
-    </div>
-    <div>
-      <h2>What I build <em>with</em></h2>
-      <p>I use AI tools every day &mdash; Claude Code, Copilot, ChatGPT &mdash; for the repetitive parts. But I read and test every line before it goes into your project. AI writes the first draft. I decide what ships.</p>
-      <div class="stack" id="stack-list"></div>
+  <section class="section" id="stack">
+    <div class="wrap layout">
+      <div class="rail">
+        <span class="num">04</span>
+        <span class="ttl">Stack</span>
+        <span class="note">Depth marked, not listed flat</span>
+      </div>
+      <div>
+        <h2>What I build with, and how deep it goes</h2>
+        <p class="intro">I use AI tooling daily for the repetitive parts of the job. It writes the first draft; I read, test and take responsibility for every line that reaches your repository.</p>
+        <div class="stack" id="stack-list"></div>
+        <p class="stack-note"><i aria-hidden="true"></i>Highlighted items are where I am strongest and would lead the technical decisions.</p>
+      </div>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"><span>&#10086;</span></div>
-
-  <section class="row" id="hello">
-    <div class="rail">
-      <span class="mark">06 &mdash; Hello</span>
-      <span class="aside">I answer quickly</span>
-    </div>
-    <div>
-      <h2>Write to <em>me</em></h2>
-      <p>Tell me what&rsquo;s broken, or what you want built. A short message with the real problem in it is worth more than a long brief.</p>
-      <ul class="links" id="links"></ul>
-
-      <div class="closing">
-        <p class="ps"><b>Postscript</b>If something is broken in production and nobody knows why &mdash; that is the message I answer fastest.</p>
-        <div class="seal" aria-hidden="true"><span>L</span></div>
+  <section class="section" id="contact">
+    <div class="wrap layout">
+      <div class="rail">
+        <span class="num">05</span>
+        <span class="ttl">Contact</span>
+        <span class="note">Usually answered same day</span>
+      </div>
+      <div>
+        <h2>Tell me what is broken, or what you need built</h2>
+        <p class="intro">A short message containing the actual problem is worth more than a long brief. If you already have logs, a failing order ID or a reproduction, send those.</p>
+        <ul class="links" id="links"></ul>
+        <div class="closing">
+          <div class="lbl">Priority</div>
+          <p>If something is broken in production right now and nobody knows why, say so in the first line &mdash; that is the message I answer fastest.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>Written by hand <span class="heart">&hearts;</span> &nbsp;&middot;&nbsp; <span id="year"></span></p>
+    <div class="wrap foot">
+      <span>Lassie</span>
+      <span>Full-stack engineering</span>
+      <span class="sep" id="year"></span>
+    </div>
   </footer>
 </main>
+
+<div class="copied" id="toast" role="status" aria-live="polite">Copied to clipboard</div>
 
 <script>
 (function(){
   "use strict";
 
-  /* ===================== DATA =====================
-     Everything personal lives here. Edit this block
-     and nothing else to keep the site up to date.  */
+  /* ==================== DATA ====================
+     Everything personal lives in this block. Edit
+     it and nothing else to keep the site current.
+     Claims here are qualitative on purpose: swap in
+     measured figures once you have them to cite.  */
   var DATA = {
 
-    about: [
-      "I'm a full-stack developer. I fix broken systems and build new ones: online stores, tracking and analytics, Android apps, and servers that have to keep running.",
-      "Most of my work starts with someone else's problem — a checkout that loses orders, revenue that doesn't match Analytics, an app the phone kills overnight. I find the cause before I change anything, because restarting a server deletes the information that explains the fault, and the same fault comes back a week later."
+    lede: "I build and repair the systems a business actually runs on: commerce platforms, the analytics that decide where its money goes, Android applications that survive real devices, and background services that are expected never to stop. <b>Most of my work begins as somebody else's outage</b> — a checkout losing orders, revenue that no longer matches Analytics, a worker that dies quietly overnight.",
+
+    facts: [
+      { k: "Practice",    v: "End-to-end",             sub: "Design, build, deploy, operate, hand over" },
+      { k: "Focus",       v: "Commerce, data, mobile", sub: "Plus the services that keep them alive" },
+      { k: "Engagement",  v: "Contract & retainer",    sub: "Remote, with overlapping working hours" },
+      { k: "Response",    v: "Same day",               sub: "Production incidents first" }
     ],
 
-    services: [
+    cases: [
       {
-        name: "Online stores",
-        desc: "Shopify, WooCommerce and PrestaShop. I set up the product catalog so it stays easy to manage later, and I test the checkout with a real payment before launch. After handover you can change prices and products yourself, without calling a developer.",
-        tags: ["Shopify", "WooCommerce", "PrestaShop"]
+        title: "On-device speech recognition for Android",
+        role: "Lead engineer",
+        context: "A continuously listening Android application where the obvious implementation — keeping a large recognition model resident and running — drained the battery fast enough that users uninstalled it, and was killed overnight by aggressive OEM power management.",
+        problem: "Continuous inference is expensive in both power and false positives. The application also had to keep running through the background restrictions that several Android vendors apply without notice, which no amount of well-behaved code can opt out of.",
+        approach: [
+          "Split recognition into two stages: a small, cheap voice-activity detector runs continuously, and the <b>large model is only started once the cheap stage agrees there is speech</b> — so the expensive path runs on a fraction of the audio.",
+          "Ran the pipeline in a foreground service with explicit wake-lock scoping, and measured battery draw continuously during development rather than auditing it at the end.",
+          "Tested on handsets from the vendors that kill background processes silently, because those are the phones the users actually own — not the reference devices.",
+          "Kept all audio processing on the device, which removed the network round trip from the latency budget and the recording from the privacy surface."
+        ],
+        outcome: [
+          { v: "Two-stage", k: "The cheap detector gates the expensive model" },
+          { v: "Battery-measured", k: "Draw tracked while building, not audited afterwards" },
+          { v: "Survives", k: "Overnight OEM background restrictions" }
+        ],
+        tags: ["Kotlin", "Foreground services", "On-device audio", "VAD gating", "Jetpack Compose"]
       },
       {
-        name: "Tracking that matches your sales",
-        desc: "GA4, Google Tag Manager, Google Ads and Meta CAPI. When revenue doesn't match what Analytics reports, it's usually one of three things: the data layer, a missing transaction ID, or a payment gateway that breaks the session. I find the cause, show you the proof, then fix it.",
+        title: "Reconciling e-commerce revenue across four platforms",
+        role: "Tracking lead",
+        context: "An online store whose real order total disagreed with GA4, Google Ads and Meta — each by a different amount. Ad spend was being allocated on numbers nobody could defend, and previous attempts had added more tags rather than finding the fault.",
+        problem: "Discrepancy of that shape is almost never one bug. It is usually some combination of a malformed data layer, transactions sent without a stable order ID so they duplicate or vanish on deduplication, and a hosted payment step that breaks session continuity on the return leg.",
+        approach: [
+          "Reconciled <b>order by order against the store's own database</b>, rather than comparing platform totals, so every missing or duplicated transaction had an identifier attached to it.",
+          "Rebuilt the data layer to emit a single canonical purchase event with a stable transaction ID, and made deduplication deterministic across GA4 and the Meta Conversions API.",
+          "Moved conversion reporting server-side where the browser could not be trusted, and preserved attribution across the payment gateway redirect.",
+          "Delivered the audit as evidence first — the cause, the affected orders and the proof — before changing any production tag."
+        ],
+        outcome: [
+          { v: "Order-by-order", k: "Reconciled against the store's own database, not platform totals" },
+          { v: "Deterministic", k: "A stable transaction ID makes deduplication repeatable" },
+          { v: "4 platforms", k: "Store, GA4, Google Ads and Meta agreeing" }
+        ],
+        tags: ["GA4", "Google Tag Manager", "Meta CAPI", "Server-side tagging", "SQL"]
+      },
+      {
+        title: "Always-on .NET worker fleet on Linux",
+        role: "Architect and operator",
+        context: "Background services whose entire value was continuity: if they stopped, or kept running while silently doing nothing, the business lost data it could not reconstruct afterwards.",
+        problem: "The failure that matters is not a crash — a crash is loud and restarts cleanly. It is the process that stays alive and stops making progress, which conventional up/down monitoring reports as perfectly healthy.",
+        approach: [
+          "Built the services as C#/.NET workers under systemd with Docker where isolation earned its keep, with defined restart policies and log rotation set before launch rather than after the first disk-full incident.",
+          "Made the health check assert that <b>data is still arriving and advancing</b>, not merely that the process exists — a stalled worker fails its own check.",
+          "Added watchdogs and idempotent, restart-safe processing so recovery never depends on a person being awake.",
+          "Verified recovery by breaking it deliberately: killing the process, rebooting the host and severing the network, then confirming it came back unattended."
+        ],
+        outcome: [
+          { v: "Restart-safe", k: "Idempotent processing; recovery needs nobody awake" },
+          { v: "Unattended", k: "Recovery from kill, reboot and network loss" },
+          { v: "Stall-aware", k: "Alerting on absence of data, not process death" }
+        ],
+        tags: ["C#/.NET", "Linux VPS", "systemd", "Docker", "Nginx", "PostgreSQL"]
+      },
+      {
+        title: "Customer-service automation with a safe escalation path",
+        role: "Full-stack",
+        context: "WhatsApp and Instagram automation for retailers, built after the common failure mode of these systems: a confident bot inventing stock levels and sizes, and trapping customers in a loop with no way out.",
+        problem: "An automated agent that guesses is worse than no automation, because it damages trust at exactly the moment a customer is ready to buy. The hard requirement was a system that knows the boundary of what it actually knows.",
+        approach: [
+          "Constrained the bot to answers it can source, and made it <b>hand the conversation to a human after two failed attempts</b> rather than trying a third time.",
+          "Blocked it entirely from asserting stock levels or sizing, which are the answers customers act on and the ones most expensive to get wrong.",
+          "Logged every unanswerable question for the shop to review, turning the failure cases into a backlog of content improvements instead of invisible losses.",
+          "Integrated against the store's real catalogue so answers came from live data rather than a stale prompt."
+        ],
+        outcome: [
+          { v: "Sourced answers", k: "Replies come from the live catalogue, not a stale prompt" },
+          { v: "Two strikes", k: "Hard cap before human handover" },
+          { v: "Zero", k: "Invented stock or sizing claims by design" }
+        ],
+        tags: ["Node.js", "WhatsApp API", "Instagram API", "TypeScript", "PostgreSQL"]
+      }
+    ],
+
+    caps: [
+      {
+        name: "Commerce platforms",
+        sub: "Build & rescue",
+        desc: "Shopify, WooCommerce and PrestaShop. I model the catalogue so it stays maintainable long after handover, and I test checkout with a real payment before launch. You should be able to change prices and products yourself without calling a developer.",
+        tags: ["Shopify", "WooCommerce", "PrestaShop", "Payments"]
+      },
+      {
+        name: "Analytics & attribution",
+        sub: "Make the numbers true",
+        desc: "GA4, Google Tag Manager, Google Ads and the Meta Conversions API. When revenue does not match what Analytics reports, the cause is usually the data layer, a missing transaction ID, or a payment gateway that breaks the session. I find it, prove it, then fix it.",
         tags: ["GA4", "Tag Manager", "Google Ads", "Meta CAPI"]
       },
       {
-        name: "Android apps that keep running",
-        desc: "Kotlin, foreground services, AccessibilityService, audio and speech processing on the device. I measure battery use while I build, not afterwards — and I test on phones from the brands that shut down background apps without warning, because those are the phones your users have.",
-        tags: ["Kotlin", "Foreground services", "On-device audio"]
+        name: "Android engineering",
+        sub: "Survives real devices",
+        desc: "Kotlin, foreground services, AccessibilityService, and audio and speech processing on the device. Battery cost is measured while building rather than discovered in review, and testing happens on the handsets that kill background work without warning.",
+        tags: ["Kotlin", "Jetpack Compose", "Foreground services", "On-device audio"]
       },
       {
-        name: "Servers that stay up",
-        desc: "C#/.NET workers on a Linux VPS, systemd, Docker, log rotation and watchdogs. My monitoring checks whether the data is still arriving, not only whether the program is running.",
-        tags: ["C#/.NET", "Linux VPS", "systemd", "Docker"]
+        name: "Backend & infrastructure",
+        sub: "Expected never to stop",
+        desc: "C#/.NET and Node services on Linux, with systemd, Docker, log rotation and watchdogs. Monitoring asserts that data is still arriving, not merely that a process is alive, because a program can be running and stuck at the same time.",
+        tags: ["C#/.NET", "Node.js", "Linux", "Docker", "PostgreSQL"]
       }
     ],
 
-    work: [
+    principles: [
       {
-        name: "Speech recognition on Android phones",
-        desc: "A small, cheap voice detector runs first, and the large model only starts when it hears something. Less battery, fewer wrong results.",
-        tags: ["Kotlin", "On-device speech"]
+        name: "Diagnose before changing anything",
+        desc: "When a production system breaks, the reflex is to restart it. Restarting destroys the evidence that explains the fault, so the same fault returns a week later with less information available than the first time. I capture state first."
       },
       {
-        name: "Tracking audits for online stores",
-        desc: "I compare the store's real sales against GA4, Google Ads and Meta, order by order, until all four numbers match.",
-        tags: ["GA4", "Google Ads", "Meta CAPI"]
+        name: "Evidence before the fix",
+        desc: "I do not change production until I can state the cause in plain language that you are able to verify yourself. If I cannot explain it, I do not yet understand it well enough to be editing it."
       },
       {
-        name: "Customer service automation for shops",
-        desc: "WhatsApp and Instagram chatbots that hand the conversation to a person after two failed answers. They never guess stock levels or sizes, and every question they can't answer is saved for the shop to review.",
-        tags: ["WhatsApp", "Instagram", "Chatbots"]
+        name: "Break it deliberately to prove it",
+        desc: "If I tell you something runs continuously, it means I have already killed the process, rebooted the host and severed the network to confirm it recovers unattended. Resilience that has never been tested is only an assumption."
+      },
+      {
+        name: "Leave the team able to continue",
+        desc: "Every engagement ends with written documentation and a recorded walkthrough. Handover is part of the work, not a favour afterwards — you should be able to make routine changes without me."
+      },
+      {
+        name: "Own the decisions, including the trade-offs",
+        desc: "I say which option I would choose, what it costs, and what I would have to give up. Presenting three choices without a recommendation moves the risk onto you, which is not what you are paying an engineer for."
       }
-    ],
-
-    promises: [
-      { name: "I find the cause before I change anything.", desc: "When a server breaks, most people restart it first. Restarting deletes the information that explains the problem, and the same problem comes back a week later." },
-      { name: "I show the proof, then fix it.", desc: "I don't make a change until I can explain the cause in plain words that you can check yourself." },
-      { name: "I break things on purpose to test them.", desc: "If I tell you something runs 24/7, it means I have already killed the program, restarted the server and cut the connection, to make sure it recovers on its own." },
-      { name: "I write everything down for you.", desc: "Every project ends with a written guide and a screen recording. You should be able to handle normal changes without me." }
     ],
 
     stack: [
-      { group: "Languages",       items: ["C#", "Kotlin", "TypeScript", "JavaScript", "PHP", "Python"] },
-      { group: "Web",             items: ["Next.js", "React", ".NET", "Node.js", "WordPress"] },
-      { group: "Commerce",        items: ["Shopify", "WooCommerce", "PrestaShop"] },
-      { group: "Mobile",          items: ["Android", "Jetpack Compose"] },
-      { group: "Data & tracking", items: ["GA4", "Tag Manager", "PostgreSQL", "SQLite"] },
-      { group: "Ops",             items: ["Linux", "Docker", "Nginx", "Git"] },
-      { group: "AI-assisted",     items: ["Claude", "GitHub Copilot", "OpenAI"] }
+      { group: "Languages",   core: ["C#", "Kotlin", "TypeScript"], rest: ["JavaScript", "PHP", "Python", "SQL"] },
+      { group: "Backend",     core: [".NET", "Node.js"],            rest: ["REST APIs", "Background workers", "Webhooks"] },
+      { group: "Frontend",    core: ["Next.js", "React"],           rest: ["Vanilla JS", "CSS architecture", "WordPress"] },
+      { group: "Mobile",      core: ["Android", "Jetpack Compose"], rest: ["Foreground services", "AccessibilityService"] },
+      { group: "Commerce",    core: ["Shopify", "WooCommerce"],     rest: ["PrestaShop", "Payment gateways"] },
+      { group: "Data",        core: ["PostgreSQL"],                 rest: ["SQLite", "GA4", "BigQuery exports"] },
+      { group: "Infra",       core: ["Linux", "Docker"],            rest: ["systemd", "Nginx", "Git", "CI pipelines"] },
+      { group: "AI-assisted", core: ["Claude Code"],                rest: ["GitHub Copilot", "OpenAI API"] }
     ],
 
     links: [
-      { where: "Telegram", what: "@lassie_dev",                url: "https://t.me/lassie_dev" },
-      { where: "WhatsApp", what: "+1 505 659 0178",            url: "https://wa.me/15056590178" },
-      { where: "Email",    what: "lassie.solution@gmail.com",  url: "mailto:lassie.solution@gmail.com" },
-      { where: "GitHub",   what: "@lassie-dev",                url: "https://github.com/lassie-dev" }
+      { where: "Email",    what: "lassie.solution@gmail.com", url: "mailto:lassie.solution@gmail.com", copy: "lassie.solution@gmail.com" },
+      { where: "Telegram", what: "@lassie_dev",               url: "https://t.me/lassie_dev" },
+      { where: "WhatsApp", what: "+1 505 659 0178",           url: "https://wa.me/15056590178" },
+      { where: "GitHub",   what: "github.com/lassie-dev",     url: "https://github.com/lassie-dev" }
     ]
   };
-  /* ================================================ */
+  /* ============================================== */
 
-  function el(tag, cls){ var n = document.createElement(tag); if (cls) n.className = cls; return n; }
-
-  function entry(item, cls){
-    var e = el("div", cls ? "entry " + cls : "entry");
-    var n = el("span", "entry-name"); n.textContent = item.name;
-    e.appendChild(n);
-    var d = el("p", "entry-desc"); d.textContent = item.desc;
-    e.appendChild(d);
-    if (item.tags && item.tags.length){
-      var t = el("div", "tags");
-      item.tags.forEach(function(tag){
-        var s = el("span", "tag"); s.textContent = tag; t.appendChild(s);
-      });
-      e.appendChild(t);
-    }
-    return e;
+  var d = document;
+  function el(tag, cls){ var n = d.createElement(tag); if (cls) n.className = cls; return n; }
+  function put(parent, tag, cls, text){
+    var n = el(tag, cls);
+    if (text != null) n.textContent = text;
+    parent.appendChild(n);
+    return n;
+  }
+  /* DATA is authored here, not user input: limited inline markup is intentional. */
+  function rich(parent, tag, cls, html){
+    var n = el(tag, cls);
+    n.innerHTML = html;
+    parent.appendChild(n);
+    return n;
   }
 
-  /* ---- about ---- */
-  var about = document.getElementById("about-body");
-  DATA.about.forEach(function(para, i){
-    var p = el("p", i === 0 ? "dropcap" : null);
-    p.textContent = para;
-    about.appendChild(p);
+  /* ---------- hero ---------- */
+  d.getElementById("hero-lede").innerHTML = DATA.lede;
+
+  var facts = d.getElementById("facts");
+  DATA.facts.forEach(function(f){
+    var w = put(facts, "div", "fact");
+    put(w, "div", "k", f.k);
+    var v = put(w, "div", "v", f.v);
+    put(v, "small", null, f.sub);
   });
-  document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ---- services / recent work / promises ---- */
-  var svc = document.getElementById("services");
-  DATA.services.forEach(function(s){ svc.appendChild(entry(s)); });
+  /* ---------- case studies ---------- */
+  var cases = d.getElementById("cases");
+  DATA.cases.forEach(function(c, i){
+    var card = put(cases, "article", "case");
 
-  var ledger = document.getElementById("ledger");
-  DATA.work.forEach(function(w){ ledger.appendChild(entry(w)); });
+    var top = put(card, "div", "case-top");
+    put(top, "span", "case-idx", "CASE " + String(i + 1).padStart(2, "0"));
+    put(top, "h3", null, c.title);
+    put(top, "span", "case-role", c.role);
 
-  var vows = document.getElementById("vows");
-  DATA.promises.forEach(function(p){ vows.appendChild(entry(p, "promise")); });
+    put(card, "p", "case-ctx", c.context);
 
-  /* ---- stack ---- */
-  var stack = document.getElementById("stack-list");
-  DATA.stack.forEach(function(g){
-    var wrap = el("div", "stack-group");
-    var lbl = el("div", "stack-label"); lbl.textContent = g.group;
-    var chips = el("div", "chips");
-    g.items.forEach(function(it){
-      var c = el("span", "chip"); c.textContent = it; chips.appendChild(c);
+    var grid = put(card, "div", "case-grid");
+
+    var pb = put(grid, "div", "block");
+    put(pb, "div", "lbl", "The problem");
+    put(pb, "p", null, c.problem);
+
+    var ab = put(grid, "div", "block");
+    put(ab, "div", "lbl", "What I did");
+    var ul = put(ab, "ul");
+    c.approach.forEach(function(step){ rich(ul, "li", null, step); });
+
+    var out = put(card, "div", "outcome");
+    put(out, "div", "lbl", "Outcome");
+    var m = put(out, "div", "metrics");
+    c.outcome.forEach(function(o){
+      var one = put(m, "div", "metric");
+      put(one, "div", "mv", o.v);
+      put(one, "div", "mk", o.k);
     });
-    wrap.appendChild(lbl); wrap.appendChild(chips);
-    stack.appendChild(wrap);
+
+    var tg = put(card, "div", "tags");
+    c.tags.forEach(function(t){ put(tg, "span", "tag", t); });
   });
 
-  /* ---- contact links ---- */
-  var ul = document.getElementById("links");
+  /* ---------- capabilities ---------- */
+  var caps = d.getElementById("caps");
+  DATA.caps.forEach(function(c){
+    var box = put(caps, "div", "cap");
+    put(box, "h3", null, c.name);
+    put(box, "div", "cap-sub", c.sub);
+    put(box, "p", null, c.desc);
+    var tg = put(box, "div", "tags");
+    c.tags.forEach(function(t){ put(tg, "span", "tag", t); });
+  });
+
+  /* ---------- principles ---------- */
+  var pr = d.getElementById("principles");
+  DATA.principles.forEach(function(p, i){
+    var row = put(pr, "div", "principle");
+    var h = put(row, "h3");
+    put(h, "span", null, String(i + 1).padStart(2, "0"));
+    h.appendChild(d.createTextNode(p.name));
+    put(row, "p", null, p.desc);
+  });
+
+  /* ---------- stack ---------- */
+  var st = d.getElementById("stack-list");
+  DATA.stack.forEach(function(g){
+    var row = put(st, "div", "stack-row");
+    put(row, "div", "g", g.group);
+    var chips = put(row, "div", "chips");
+    (g.core || []).forEach(function(x){ put(chips, "span", "chip core", x); });
+    (g.rest || []).forEach(function(x){ put(chips, "span", "chip", x); });
+  });
+
+  /* ---------- contact ---------- */
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+  var ul2 = d.getElementById("links");
   DATA.links.forEach(function(k){
-    var li = el("li"), a = el("a");
+    var li = put(ul2, "li");
+    var a = el("a");
     a.href = k.url;
     if (k.url.indexOf("mailto:") !== 0){ a.target = "_blank"; a.rel = "noopener noreferrer"; }
-    var w = el("span", "where"); w.textContent = k.where;
-    var t = el("span", "what");  t.textContent = k.what;
-    a.appendChild(w); a.appendChild(t);
-    li.appendChild(a); ul.appendChild(li);
+    put(a, "span", "where", k.where);
+    put(a, "span", "what", k.what);
+    rich(a, "span", "arrow", ARROW);
+    li.appendChild(a);
+
+    if (k.copy){
+      a.addEventListener("click", function(ev){
+        if (!navigator.clipboard || ev.metaKey || ev.ctrlKey) return;
+        ev.preventDefault();
+        navigator.clipboard.writeText(k.copy).then(toast, function(){ window.location.href = k.url; });
+      });
+    }
   });
 
-  /* ---- drifting petals ---- */
+  var toastEl = d.getElementById("toast"), toastT;
+  function toast(){
+    toastEl.classList.add("show");
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toastEl.classList.remove("show"); }, 1800);
+  }
+
+  d.getElementById("year").textContent = String(new Date().getFullYear());
+
+  /* ---------- theme: system -> light -> dark ---------- */
   (function(){
-    var cv = document.getElementById("petals");
-    if (!cv || !cv.getContext) return;
-    var ctx = cv.getContext("2d");
-    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var petals = [], W = 0, H = 0;
+    var ICONS = {
+      system: '<path d="M4 5h16v10H4zM9 20h6M12 15v5"/>',
+      light:  '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+      dark:   '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'
+    };
+    var ORDER = ["system", "light", "dark"];
+    var btn = d.getElementById("theme"), icon = d.getElementById("theme-icon");
+    var mode = "system";
 
-    function tint(name, fallback){
-      var v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    }
-    var TA = tint("--petal-a", "236,183,193"), TB = tint("--petal-b", "246,214,204");
+    try { mode = localStorage.getItem("theme") || "system"; } catch (e) {}
+    if (ORDER.indexOf(mode) === -1) mode = "system";
 
-    function resize(){
-      W = cv.clientWidth; H = cv.clientHeight;
-      cv.width = Math.max(1, W * dpr); cv.height = Math.max(1, H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    function apply(){
+      if (mode === "system") d.documentElement.removeAttribute("data-theme");
+      else d.documentElement.setAttribute("data-theme", mode);
+      icon.innerHTML = ICONS[mode];
+      btn.setAttribute("aria-label", "Colour theme: " + mode + ". Click to change.");
+      btn.title = "Theme: " + mode;
     }
-    function seed(){
-      petals = [];
-      var n = Math.round(Math.min(30, Math.max(12, W / 52)));
-      for (var i = 0; i < n; i++){
-        petals.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: 4 + Math.random() * 12,
-          sp: 0.10 + Math.random() * 0.32,
-          dr: (Math.random() - 0.5) * 0.28,
-          a: Math.random() * Math.PI * 2,
-          va: (Math.random() - 0.5) * 0.008,
-          o: 0.14 + Math.random() * 0.3,
-          t: Math.random() < 0.5 ? TA : TB
-        });
-      }
-    }
-    function draw(p){
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.a);
-      ctx.fillStyle = "rgba(" + p.t + "," + p.o + ")";
-      ctx.beginPath();
-      ctx.ellipse(0, 0, p.r, p.r * 0.54, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-    function frame(){
-      ctx.clearRect(0, 0, W, H);
-      for (var i = 0; i < petals.length; i++){
-        var p = petals[i];
-        p.y += p.sp;
-        p.x += p.dr + Math.sin(p.y * 0.008) * 0.22;
-        p.a += p.va;
-        if (p.y - p.r > H){ p.y = -p.r * 2; p.x = Math.random() * W; }
-        if (p.x < -30) p.x = W + 20; else if (p.x > W + 30) p.x = -20;
-        draw(p);
-      }
-      requestAnimationFrame(frame);
-    }
-    function boot(){
-      resize(); seed();
-      ctx.clearRect(0, 0, W, H);
-      petals.forEach(draw);
-    }
-    boot();
-    if (!reduced) requestAnimationFrame(frame);
+    apply();
 
-    var t;
-    window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(boot, 180); });
+    btn.addEventListener("click", function(){
+      mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+      try { localStorage.setItem("theme", mode); } catch (e) {}
+      apply();
+    });
   })();
+
+  /* ---------- sticky nav border + scroll spy ---------- */
+  (function(){
+    var nav = d.getElementById("nav");
+    var anchors = Array.prototype.slice.call(d.querySelectorAll("#navlinks a"));
+    var sections = anchors.map(function(a){ return d.querySelector(a.getAttribute("href")); });
+
+    function onScroll(){
+      nav.classList.toggle("stuck", window.scrollY > 8);
+      var line = window.scrollY + 140, active = -1;
+      for (var i = 0; i < sections.length; i++){
+        if (sections[i] && sections[i].offsetTop <= line) active = i;
+      }
+      anchors.forEach(function(a, i){ a.classList.toggle("active", i === active); });
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ onScroll(); ticking = false; });
+    }, { passive: true });
+    onScroll();
+  })();
+
+  /* ---------- reveal on scroll ---------- */
+  (function(){
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var items = Array.prototype.slice.call(
+      d.querySelectorAll(".case, .cap, .principle, .stack-row, .fact, .closing")
+    );
+    if (reduced || !("IntersectionObserver" in window)) return;
+
+    items.forEach(function(n){ n.classList.add("reveal"); });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    items.forEach(function(n){ io.observe(n); });
+  })();
+
 })();
 </script>

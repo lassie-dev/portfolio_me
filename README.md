@@ -1,7 +1,8 @@
-# Lassie's Letter
+# Lassie — portfolio
 
-A single-page portfolio. No build step, no dependencies, no framework — one static
-HTML file that loads two fonts from Google Fonts and does everything else itself.
+A single-page portfolio for a senior full-stack engineer. No build step in the
+usual sense, no dependencies, no framework — one static HTML file that loads two
+fonts from Google Fonts and does everything else itself.
 
 ## Editing content
 
@@ -10,18 +11,31 @@ Everything personal lives in **one place**: the `DATA` object near the top of th
 
 ```js
 var DATA = {
-  about:     [ "paragraph", "paragraph" ],
-  preview:   true,          // set to false once the repos below are real
-  repos:     [ { name, desc, url, lang, color, stars, updated } ],
-  languages: [ { name, pct, color } ],   // pct should sum to ~100
-  links:     [ { where, what, url } ]
+  lede:       "...",                       // hero paragraph, limited inline <b> allowed
+  facts:      [ { k, v, sub } ],           // the four-column strip under the hero
+  cases:      [ { title, role, context,
+                  problem, approach[],     // approach entries allow inline <b>
+                  outcome[{v,k}], tags[] } ],
+  caps:       [ { name, sub, desc, tags[] } ],
+  principles: [ { name, desc } ],
+  stack:      [ { group, core[], rest[] } ],  // core[] renders highlighted
+  links:      [ { where, what, url, copy? } ] // copy: click copies instead of navigating
 };
 ```
 
 Nothing else in the file needs to change to keep the site current.
 
-`preview: true` shows a dashed "Preview entries" chip above the work list. Delete
-that line (or set it to `false`) once the entries are your real repositories.
+### Claims and figures
+
+Every claim on the page is qualitative on purpose — it describes how a system
+was built, not how much it improved. That keeps the site honest while no
+measured figures are on hand.
+
+When you do have numbers you can cite, swap them into the `outcome` entries
+(`{ v, k }` — `v` is the figure, `k` the caption beneath it). If you want to
+stage one before you have the real value, write it as `((X%))`: the build prints
+a warning listing every such token still present, so a placeholder cannot reach
+production unnoticed.
 
 ## Building
 
@@ -32,7 +46,8 @@ powershell -ExecutionPolicy Bypass -File build.ps1
 ```
 
 The build lifts `<title>` and the font `<link>` tags into a proper `<head>`,
-adds meta/Open Graph tags and the favicon, and writes `index.html`.
+adds meta/Open Graph tags and the favicon, warns about unfilled placeholders,
+and writes `index.html`.
 
 **Run this after every edit to `content.html`** — Vercel deploys `index.html`,
 not `content.html`.
@@ -57,18 +72,9 @@ directory, accept the root.
 
 ### Option B — Git
 
-```powershell
-git init
-git add .
-git commit -m "Portfolio site"
-git branch -M main
-git remote add origin https://github.com/<your-username>/<repo>.git
-git push -u origin main
-```
-
-Then on [vercel.com/new](https://vercel.com/new), import the repository.
+Push the repository and import it on [vercel.com/new](https://vercel.com/new).
 Framework preset: **Other**. Leave the build command empty and the output
-directory as the root. Every push to `main` redeploys.
+directory as the root. Every push to the default branch redeploys.
 
 ### Custom domain
 
@@ -77,11 +83,20 @@ records Vercel shows you.
 
 ## Notes
 
-- The page is theme-aware: it follows the visitor's light/dark setting, and both
-  palettes are defined explicitly.
-- The drifting petals are a `<canvas>` and are disabled for anyone with
-  `prefers-reduced-motion` set — they get a single static scatter instead.
-- The language garland is generated as inline SVG from `DATA.languages`; the
-  bloom radius scales with the square root of the percentage so the areas, not
-  the widths, stay proportional.
+- **Theme.** The page follows the visitor's light/dark setting, and the button in
+  the header cycles system → light → dark. The choice is stored in
+  `localStorage` behind a `try/catch`, so it degrades cleanly in private windows
+  or when site data is blocked.
+- **Both palettes are defined explicitly.** Light tokens sit on bare `:root`;
+  dark is redefined under `@media (prefers-color-scheme:dark)` guarded with
+  `:root:not([data-theme="light"])`, and again under `:root[data-theme="dark"]`
+  so the toggle wins in both directions.
+- **Reveal-on-scroll** is added by JavaScript, not by the markup, so the page is
+  fully readable with scripting disabled. It is skipped entirely for anyone with
+  `prefers-reduced-motion` set.
+- **The email row copies instead of navigating** when the Clipboard API is
+  available, and falls back to the `mailto:` link when it is not, or when the
+  visitor holds Ctrl/Cmd.
+- **Scroll spy** marks the current section in the header. Section anchors and
+  `scroll-padding-top` keep headings clear of the sticky bar.
 - Contact details in `DATA.links` are public once deployed.
