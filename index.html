@@ -324,6 +324,28 @@
     margin-top:.15rem;font-size:.75rem;color:var(--ink-3);max-width:22ch;line-height:1.45;
   }
 
+  .case-links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.15rem}
+  .case-link{
+    display:inline-flex;align-items:center;gap:.4rem;
+    border:1px solid var(--line-2);border-radius:8px;
+    padding:.34rem .7rem;text-decoration:none;
+    font-size:.8rem;font-weight:500;color:var(--ink);
+    transition:border-color .15s ease,background .15s ease;
+  }
+  .case-link:hover{border-color:var(--ink-3);background:var(--bg-2)}
+  .case-link svg{
+    width:13px;height:13px;stroke:currentColor;fill:none;
+    stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+    color:var(--ink-3);
+  }
+  .case-link:hover svg{color:var(--accent)}
+  .case-private{
+    display:inline-flex;align-items:center;
+    font-family:var(--f-mono);font-size:.63rem;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-3);
+    border:1px dashed var(--line-2);border-radius:8px;padding:.34rem .7rem;
+  }
+
   .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1.15rem}
   .tag{
     font-family:var(--f-mono);font-size:.66rem;
@@ -599,7 +621,13 @@
      Everything personal lives in this block. Edit
      it and nothing else to keep the site current.
      Claims here are qualitative on purpose: swap in
-     measured figures once you have them to cite.  */
+     measured figures once you have them to cite.
+
+     Each case can carry `links` (live site, repository)
+     and/or `private` (a short note where the work is
+     not public). Both are optional: a case that
+     declares neither renders no link row at all.
+     Only ever link to work you actually built.      */
   var DATA = {
 
     lede: "I build and repair the systems a business actually runs on: commerce platforms, the analytics that decide where its money goes, Android applications that survive real devices, smart contracts on EVM chains and Solana, and background services that are expected never to stop. <b>Most of my work begins as somebody else's outage</b> — a checkout losing orders, revenue that no longer matches Analytics, a worker that dies quietly overnight.",
@@ -628,6 +656,9 @@
           { v: "Battery-measured", k: "Draw tracked while building, not audited afterwards" },
           { v: "Survives", k: "Overnight OEM background restrictions" }
         ],
+        // links: [{ label: "Live site", url: "https://..." },
+        //         { label: "Repository", url: "https://github.com/..." }],
+        // private: "Client work, not public",
         tags: ["Kotlin", "Foreground services", "On-device audio", "VAD gating", "Jetpack Compose"]
       },
       {
@@ -646,6 +677,9 @@
           { v: "Deterministic", k: "A stable transaction ID makes deduplication repeatable" },
           { v: "4 platforms", k: "Store, GA4, Google Ads and Meta agreeing" }
         ],
+        // links: [{ label: "Live site", url: "https://..." },
+        //         { label: "Repository", url: "https://github.com/..." }],
+        // private: "Client work, not public",
         tags: ["GA4", "Google Tag Manager", "Meta CAPI", "Server-side tagging", "SQL"]
       },
       {
@@ -664,6 +698,9 @@
           { v: "Unattended", k: "Recovery from kill, reboot and network loss" },
           { v: "Stall-aware", k: "Alerting on absence of data, not process death" }
         ],
+        // links: [{ label: "Live site", url: "https://..." },
+        //         { label: "Repository", url: "https://github.com/..." }],
+        // private: "Client work, not public",
         tags: ["C#/.NET", "Linux VPS", "systemd", "Docker", "Nginx", "PostgreSQL"]
       },
       {
@@ -682,6 +719,9 @@
           { v: "Two strikes", k: "Hard cap before human handover" },
           { v: "Zero", k: "Invented stock or sizing claims by design" }
         ],
+        // links: [{ label: "Live site", url: "https://..." },
+        //         { label: "Repository", url: "https://github.com/..." }],
+        // private: "Client work, not public",
         tags: ["Node.js", "WhatsApp API", "Instagram API", "TypeScript", "PostgreSQL"]
       }
     ],
@@ -790,6 +830,8 @@
     put(v, "small", null, f.sub);
   });
 
+  var ARROW_SM = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>';
+
   /* ---------- case studies ---------- */
   var cases = d.getElementById("cases");
   DATA.cases.forEach(function(c, i){
@@ -824,6 +866,22 @@
 
     var tg = put(card, "div", "tags");
     c.tags.forEach(function(t){ put(tg, "span", "tag", t); });
+
+    /* Optional: live site, repository, or a note that the work is private.
+       Renders nothing at all when the case declares no links.            */
+    if ((c.links && c.links.length) || c.private){
+      var row = put(card, "div", "case-links");
+      (c.links || []).forEach(function(l){
+        var a = el("a", "case-link");
+        a.href = l.url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.appendChild(d.createTextNode(l.label));
+        rich(a, "span", null, ARROW_SM);
+        row.appendChild(a);
+      });
+      if (c.private) put(row, "span", "case-private", c.private);
+    }
   });
 
   /* ---------- capabilities ---------- */

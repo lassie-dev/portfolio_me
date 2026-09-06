@@ -15,7 +15,9 @@ var DATA = {
   facts:      [ { k, v, sub } ],           // the four-column strip under the hero
   cases:      [ { title, role, context,
                   problem, approach[],     // approach entries allow inline <b>
-                  outcome[{v,k}], tags[] } ],
+                  outcome[{v,k}], tags[],
+                  links?[{label,url}],     // optional: live site, repository
+                  private? } ],            // optional: "Client work, not public"
   caps:       [ { name, sub, desc, tags[] } ],
   principles: [ { name, desc } ],
   stack:      [ { group, core[], rest[] } ],  // core[] renders highlighted
@@ -36,6 +38,26 @@ When you do have numbers you can cite, swap them into the `outcome` entries
 stage one before you have the real value, write it as `((X%))`: the build prints
 a warning listing every such token still present, so a placeholder cannot reach
 production unnoticed.
+
+### Linking to work
+
+Each case study can carry `links` (a live site, a repository) and a `private`
+note where the work cannot be shown. Both are optional — a case declaring
+neither renders no link row at all, which is the current state. Uncomment the
+slots already present in each case and fill them in:
+
+```js
+links: [{ label: "Live site",  url: "https://..." },
+        { label: "Repository", url: "https://github.com/..." }],
+private: "Client work, not public",
+```
+
+Only ever link to work you actually built. A borrowed URL is trivial for a
+client to check — WHOIS, the Wayback Machine, or one question about a technical
+decision on the page — and it discredits every honest claim next to it. Where a
+project is under NDA or offline, use `private` and let the written case study
+carry the weight; a described system with no link reads as discretion, while a
+link to someone else's site reads as fraud.
 
 ## Building
 
