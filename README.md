@@ -105,6 +105,20 @@ records Vercel shows you.
 
 ## Notes
 
+- **Two typographic voices.** Cormorant Garamond carries the display headings
+  and the italic subtitle; Inter carries body copy and JetBrains Mono the
+  labels and metrics. The serif supplies the warmth, the mono keeps the
+  technical claims legible.
+- **Motion.** Petals drift across a fixed `<canvas>` behind the page, a bloom
+  breathes behind the hero, the underline beneath the name draws itself once,
+  cards lift into a rose glow on hover, contact rows draw a line as you cross
+  them, and sections fade up in sequence as they enter the viewport. Every one
+  of these is disabled under `prefers-reduced-motion`, which also removes the
+  bloom and freezes the underline in its finished state.
+- **Petal tint follows the theme.** The canvas reads `--petal-a`/`--petal-b`
+  from the palette, and the theme toggle dispatches a `themechange` event so
+  the drifting petals re-tint without a reload.
+
 - **Theme.** The page follows the visitor's light/dark setting, and the button in
   the header cycles system → light → dark. The choice is stored in
   `localStorage` behind a `try/catch`, so it degrades cleanly in private windows
