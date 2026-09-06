@@ -581,7 +581,7 @@
 
     facts: [
       { k: "Practice",    v: "End-to-end",             sub: "Design, build, deploy, operate, hand over" },
-      { k: "Focus",       v: "Commerce, data, mobile", sub: "Plus the services that keep them alive" },
+      { k: "Focus",       v: "Web, mobile, infra",     sub: "Commerce, data and the pipelines that ship them" },
       { k: "Engagement",  v: "Contract & retainer",    sub: "Remote, with overlapping working hours" },
       { k: "Response",    v: "Same day",               sub: "Production incidents first" }
     ],
@@ -663,10 +663,10 @@
 
     caps: [
       {
-        name: "Commerce platforms",
+        name: "Web apps & commerce",
         sub: "Build & rescue",
-        desc: "Shopify, WooCommerce and PrestaShop. I model the catalogue so it stays maintainable long after handover, and I test checkout with a real payment before launch. You should be able to change prices and products yourself without calling a developer.",
-        tags: ["Shopify", "WooCommerce", "PrestaShop", "Payments"]
+        desc: "React and Next.js front ends, and stores on Shopify, WooCommerce and PrestaShop. I write HTML and CSS that stays readable a year later, model the catalogue so it remains maintainable after handover, and test checkout with a real payment before launch. You should be able to change prices and products yourself without calling a developer.",
+        tags: ["React", "Next.js", "HTML", "CSS", "Shopify", "WooCommerce"]
       },
       {
         name: "Analytics & attribution",
@@ -681,10 +681,10 @@
         tags: ["Kotlin", "Jetpack Compose", "Foreground services", "On-device audio"]
       },
       {
-        name: "Backend & infrastructure",
+        name: "Backend, DevOps & CI/CD",
         sub: "Expected never to stop",
-        desc: "C#/.NET and Node services on Linux, with systemd, Docker, log rotation and watchdogs. Monitoring asserts that data is still arriving, not merely that a process is alive, because a program can be running and stuck at the same time.",
-        tags: ["C#/.NET", "Node.js", "Linux", "Docker", "PostgreSQL"]
+        desc: "Node and C#/.NET services on Linux, with Docker, systemd, log rotation and watchdogs, shipped through pipelines that build, test and deploy on every push. Monitoring asserts that data is still arriving, not merely that a process is alive, because a program can be running and stuck at the same time.",
+        tags: ["Node.js", "C#/.NET", "Docker", "CI/CD", "Linux", "PostgreSQL"]
       }
     ],
 
@@ -712,14 +712,14 @@
     ],
 
     stack: [
-      { group: "Languages",   core: ["C#", "Kotlin", "TypeScript"], rest: ["JavaScript", "PHP", "Python", "SQL"] },
-      { group: "Backend",     core: [".NET", "Node.js"],            rest: ["REST APIs", "Background workers", "Webhooks"] },
-      { group: "Frontend",    core: ["Next.js", "React"],           rest: ["Vanilla JS", "CSS architecture", "WordPress"] },
-      { group: "Mobile",      core: ["Android", "Jetpack Compose"], rest: ["Foreground services", "AccessibilityService"] },
-      { group: "Commerce",    core: ["Shopify", "WooCommerce"],     rest: ["PrestaShop", "Payment gateways"] },
-      { group: "Data",        core: ["PostgreSQL"],                 rest: ["SQLite", "GA4", "BigQuery exports"] },
-      { group: "Infra",       core: ["Linux", "Docker"],            rest: ["systemd", "Nginx", "Git", "CI pipelines"] },
-      { group: "AI-assisted", core: ["Claude Code"],                rest: ["GitHub Copilot", "OpenAI API"] }
+      { group: "Languages",      core: ["JavaScript", "TypeScript", "Java", "Kotlin", "C#"], rest: ["PHP", "Python", "SQL"] },
+      { group: "Frontend",       core: ["React", "Next.js", "HTML", "CSS"],                  rest: ["Responsive layout", "Accessibility", "WordPress"] },
+      { group: "Mobile",         core: ["Android", "Java", "Kotlin"],                        rest: ["Jetpack Compose", "Foreground services", "AccessibilityService"] },
+      { group: "Backend",        core: ["Node.js", ".NET"],                                  rest: ["REST APIs", "Background workers", "Webhooks"] },
+      { group: "DevOps & CI/CD", core: ["CI/CD pipelines", "Docker", "Linux"],               rest: ["GitHub Actions", "Nginx", "systemd", "Git"] },
+      { group: "Commerce",       core: ["Shopify", "WooCommerce"],                           rest: ["PrestaShop", "Payment gateways"] },
+      { group: "Data",           core: ["PostgreSQL"],                                       rest: ["SQLite", "GA4", "BigQuery exports"] },
+      { group: "AI-assisted",    core: ["Claude Code"],                                      rest: ["GitHub Copilot", "OpenAI API"] }
     ],
 
     links: [
