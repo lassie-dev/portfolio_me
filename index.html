@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Lassie - senior full-stack engineer. Commerce platforms, analytics and attribution that reconcile, Android apps that survive real devices, and background services expected never to stop. Available for contract work.">
+<meta name="description" content="Lassie - senior full-stack and blockchain engineer. Commerce platforms, analytics and attribution that reconcile, Android apps that survive real devices, Solidity and Rust smart contracts, and background services expected never to stop. Available for contract work.">
 <meta name="theme-color" content="#FCFCFB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D0D0F" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Lassie - Senior Full-Stack Engineer">
-<meta property="og:description" content="Commerce, analytics, Android and always-on backend services. I diagnose before I change anything, and I prove the cause before I ship the fix.">
+<meta property="og:description" content="Web, mobile, on-chain and always-on backend services. I diagnose before I change anything, and I prove the cause before I ship the fix.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23141416'/><text x='16' y='23' text-anchor='middle' font-family='monospace' font-size='19' font-weight='700' fill='%23E09A5F'>L</text></svg>">
@@ -346,6 +346,10 @@
   }
   .cap p{margin-top:.75rem;font-size:.88rem;color:var(--ink-2);line-height:1.6;flex:1}
   .cap .tags{margin-top:1rem}
+  @media (min-width:760px){
+    /* a fifth card would otherwise sit alone in the left column */
+    .caps .cap:last-child:nth-child(odd){grid-column:1/-1}
+  }
 
   /* ---------------- principles ---------------- */
   .principles{margin-top:1.9rem;border-top:1px solid var(--line)}
@@ -516,10 +520,10 @@
       <div class="rail">
         <span class="num">02</span>
         <span class="ttl">Capabilities</span>
-        <span class="note">Four domains, at depth</span>
+        <span class="note">Five domains, at depth</span>
       </div>
       <div>
-        <h2>Four domains I go deep in, rather than ten I skim</h2>
+        <h2>Five domains I go deep in, rather than twenty I skim</h2>
         <p class="intro">Each of these is a system I have owned in production &mdash; designed, deployed, monitored and handed over &mdash; not a technology I have read about.</p>
         <div class="caps" id="caps"></div>
       </div>
@@ -598,11 +602,11 @@
      measured figures once you have them to cite.  */
   var DATA = {
 
-    lede: "I build and repair the systems a business actually runs on: commerce platforms, the analytics that decide where its money goes, Android applications that survive real devices, and background services that are expected never to stop. <b>Most of my work begins as somebody else's outage</b> — a checkout losing orders, revenue that no longer matches Analytics, a worker that dies quietly overnight.",
+    lede: "I build and repair the systems a business actually runs on: commerce platforms, the analytics that decide where its money goes, Android applications that survive real devices, smart contracts on EVM chains and Solana, and background services that are expected never to stop. <b>Most of my work begins as somebody else's outage</b> — a checkout losing orders, revenue that no longer matches Analytics, a worker that dies quietly overnight.",
 
     facts: [
       { k: "Practice",    v: "End-to-end",             sub: "Design, build, deploy, operate, hand over" },
-      { k: "Focus",       v: "Web, mobile, infra",     sub: "Commerce, data and the pipelines that ship them" },
+      { k: "Focus",       v: "Web, mobile, on-chain",  sub: "Plus the data and pipelines that keep them running" },
       { k: "Engagement",  v: "Contract & retainer",    sub: "Remote, with overlapping working hours" },
       { k: "Response",    v: "Same day",               sub: "Production incidents first" }
     ],
@@ -706,6 +710,12 @@
         sub: "Expected never to stop",
         desc: "Node and C#/.NET services on Linux, with Docker, systemd, log rotation and watchdogs, shipped through pipelines that build, test and deploy on every push. Monitoring asserts that data is still arriving, not merely that a process is alive, because a program can be running and stuck at the same time.",
         tags: ["Node.js", "C#/.NET", "Docker", "CI/CD", "Linux", "PostgreSQL"]
+      },
+      {
+        name: "Smart contracts & on-chain systems",
+        sub: "Senior blockchain engineering",
+        desc: "Solidity contracts on EVM chains, built and tested with Hardhat, and Rust programs on Solana. Deployed code cannot be patched in place, so the work has to happen before it ships: exhaustive tests, adversarial cases, and a review pass that assumes the contract is already holding real money — because once it is live, a logic error is not a bug report.",
+        tags: ["Solidity", "Hardhat", "Rust", "Solana", "EVM"]
       }
     ],
 
@@ -733,11 +743,12 @@
     ],
 
     stack: [
-      { group: "Languages",      core: ["JavaScript", "TypeScript", "Java", "Kotlin", "C#"], rest: ["PHP", "Python", "SQL"] },
+      { group: "Languages",      core: ["JavaScript", "TypeScript", "Solidity", "Rust", "Java", "Kotlin", "C#"], rest: ["PHP", "Python", "SQL"] },
       { group: "Frontend",       core: ["React", "Next.js", "HTML", "CSS"],                  rest: ["Responsive layout", "Accessibility", "WordPress"] },
       { group: "Mobile",         core: ["Android", "Java", "Kotlin"],                        rest: ["Jetpack Compose", "Foreground services", "AccessibilityService"] },
       { group: "Backend",        core: ["Node.js", ".NET"],                                  rest: ["REST APIs", "Background workers", "Webhooks"] },
       { group: "DevOps & CI/CD", core: ["CI/CD pipelines", "Docker", "Linux"],               rest: ["GitHub Actions", "Nginx", "systemd", "Git"] },
+      { group: "Blockchain",     core: ["Solidity", "Hardhat", "Rust", "Solana"],              rest: ["EVM chains", "Contract testing"] },
       { group: "Commerce",       core: ["Shopify", "WooCommerce"],                           rest: ["PrestaShop", "Payment gateways"] },
       { group: "Data",           core: ["PostgreSQL"],                                       rest: ["SQLite", "GA4", "BigQuery exports"] },
       { group: "AI-assisted",    core: ["Claude Code"],                                      rest: ["GitHub Copilot", "OpenAI API"] }

@@ -32,11 +32,11 @@ $head = @'
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Lassie - senior full-stack engineer. Commerce platforms, analytics and attribution that reconcile, Android apps that survive real devices, and background services expected never to stop. Available for contract work.">
+<meta name="description" content="Lassie - senior full-stack and blockchain engineer. Commerce platforms, analytics and attribution that reconcile, Android apps that survive real devices, Solidity and Rust smart contracts, and background services expected never to stop. Available for contract work.">
 <meta name="theme-color" content="#FCFCFB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D0D0F" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Lassie - Senior Full-Stack Engineer">
-<meta property="og:description" content="Commerce, analytics, Android and always-on backend services. I diagnose before I change anything, and I prove the cause before I ship the fix.">
+<meta property="og:description" content="Web, mobile, on-chain and always-on backend services. I diagnose before I change anything, and I prove the cause before I ship the fix.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23141416'/><text x='16' y='23' text-anchor='middle' font-family='monospace' font-size='19' font-weight='700' fill='%23E09A5F'>L</text></svg>">
